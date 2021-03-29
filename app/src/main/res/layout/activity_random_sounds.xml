@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_gray"
+    android:onClick="hideKeyboard"
+    tools:context=".RandomSoundsActivity">
+
+    <ListView
+        android:id="@+id/soundsListView"
+        android:layout_width="409dp"
+        android:layout_height="488dp"
+        android:background="@color/dark_gray"
+        android:divider="#21be97"
+        android:dividerHeight="2dp"
+        android:scrollbars="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/recordSoundImageView"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/icons_rounded_borders_background"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/soundsListView"
+        app:srcCompat="@drawable/ic_microphone" />
+
+    <Button
+        android:id="@+id/generateSoundButton"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/generate"
+        android:textSize="20sp"
+        android:fontFamily="@font/round_regular"
+        app:layout_constraintEnd_toEndOf="@+id/recordSoundImageView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/recordSoundImageView"
+        app:layout_constraintTop_toBottomOf="@+id/recordSoundImageView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

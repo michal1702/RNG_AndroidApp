@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">RandomNumberGenerator</string>
+    <string name="lower_limit">Min</string>
+    <string name="upper_limit">Max</string>
+    <string name="include_decimal">Decimal</string>
+    <string name="noRepeat">Repeat</string>
+    <string name="result">Result:</string>
+    <string name="generate">Draw</string>
+    <string name="add_word">Add</string>
+    <string name="type_something">Type or record…</string>
+    <string name="words"> Words list…</string>
+    <string name="clear_words">Clear</string>
+    <string name="numbers_count">Numbers count</string>
+</resources>

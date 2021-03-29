@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_gray"
+    android:onClick="hideKeyboard"
+    tools:context=".RandomWordsActivity">
+
+    <EditText
+        android:id="@+id/wordTextEdit"
+        android:layout_width="196dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/light_green"
+        android:ems="10"
+        android:fontFamily="@font/round_regular"
+        android:hint="@string/type_something"
+        android:inputType="text"
+        android:textColor="@color/text_white"
+        android:textColorHint="@color/text_white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wordWarningTextView" />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:minWidth="20dp"
+        android:layout_height="46dp"
+        android:fontFamily="@font/round_regular"
+        android:text="@string/add_word"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/wordTextEdit"
+        app:layout_constraintTop_toTopOf="@+id/wordTextEdit" />
+
+    <TextView
+        android:id="@+id/resultTextView"
+        android:layout_width="225dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="52dp"
+        android:background="@color/light_green"
+        android:fontFamily="@font/round_regular"
+        android:paddingVertical="5dp"
+        android:textAlignment="center"
+        android:textColor="@color/text_white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/generateWordButton" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/round_regular"
+        android:text="@string/result"
+        android:textColor="@color/text_white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/resultTextView"
+        app:layout_constraintStart_toStartOf="@+id/resultTextView" />
+
+    <Button
+        android:id="@+id/generateWordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="92dp"
+        android:fontFamily="@font/round_regular"
+        android:text="@string/generate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/clearButton" />
+
+    <TextView
+        android:id="@+id/listViewDescriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/round_regular"
+        android:text="@string/words"
+        android:textColor="@color/text_white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/wordsTextView"
+        app:layout_constraintTop_toTopOf="@+id/wordsTextView" />
+
+    <TextView
+        android:id="@+id/wordWarningTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textColor="@color/light_green"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wordsTextView" />
+
+    <TextView
+        android:id="@+id/wordsTextView"
+        android:layout_width="222dp"
+        android:layout_height="218dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/text_view_border"
+        android:fontFamily="@font/round_regular"
+        android:scrollbars="vertical"
+        android:textColor="@color/text_white"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="92dp"
+        android:fontFamily="@font/round_regular"
+        android:text="@string/clear_words"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wordTextEdit" />
+
+    <ImageView
+        android:id="@+id/microphoneImageView"
+        android:layout_width="37dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="4dp"
+        android:clickable="true"
+        android:background="@drawable/icons_rounded_borders_background"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/addButton"
+        app:layout_constraintStart_toEndOf="@+id/addButton"
+        app:layout_constraintTop_toTopOf="@+id/addButton"
+        app:layout_constraintVertical_bias="0.545"
+        app:srcCompat="@drawable/ic_microphone" />
+</androidx.constraintlayout.widget.ConstraintLayout>

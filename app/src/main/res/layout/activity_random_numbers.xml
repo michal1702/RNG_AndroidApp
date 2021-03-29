@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_gray"
+    android:onClick="hideKeyboard"
+    tools:context=".RandomNumbersActivity">
+
+    <EditText
+        android:id="@+id/lowerLimitTextEdit"
+        android:layout_width="111dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="12dp"
+        android:backgroundTint="@color/light_green"
+        android:ems="10"
+        android:fontFamily="@font/round_regular"
+        android:hint="@string/lower_limit"
+        android:inputType="numberSigned"
+        android:textColor="@color/text_white"
+        android:textColorHint="@color/text_white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/upperLimitTextEdit"
+        app:layout_constraintEnd_toStartOf="@+id/upperLimitTextEdit"
+        app:layout_constraintTop_toTopOf="@+id/upperLimitTextEdit"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/upperLimitTextEdit"
+        android:layout_width="111dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="92dp"
+        android:backgroundTint="@color/light_green"
+        android:ems="10"
+        android:fontFamily="@font/round_regular"
+        android:hint="@string/upper_limit"
+        android:inputType="numberSigned"
+        android:textColor="@color/text_white"
+        android:textColorHint="@color/text_white"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextNumberCount"
+        android:layout_width="198dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/light_green"
+        android:ems="10"
+        android:fontFamily="@font/round_regular"
+        android:hint="@string/numbers_count"
+        android:inputType="number"
+        android:textColor="@color/text_white"
+        android:textColorHint="@color/text_white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/warningTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/noRepeatSwitch"
+        android:layout_width="160dp"
+        android:layout_height="35dp"
+        android:fontFamily="@font/round_regular"
+        android:text="@string/noRepeat"
+        android:textColor="@color/text_white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/decimalSwitch"
+        app:layout_constraintStart_toStartOf="@+id/decimalSwitch" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/decimalSwitch"
+        android:layout_width="160dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="40dp"
+        android:fontFamily="@font/round_regular"
+        android:text="@string/include_decimal"
+        android:textColor="@color/text_white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/descendingSortwitch"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/ascendingSortwitch"
+        android:layout_width="160dp"
+        android:layout_height="35dp"
+        android:fontFamily="@font/round_regular"
+        android:text="Ascending"
+        android:textColor="@color/text_white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/descendingSortwitch"
+        app:layout_constraintStart_toStartOf="@+id/descendingSortwitch" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/descendingSortwitch"
+        android:layout_width="160dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"
+        android:fontFamily="@font/round_regular"
+        android:text="Descending"
+        android:textColor="@color/text_white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextNumberCount"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/resultTextView"
+        android:layout_width="257dp"
+        android:layout_height="169dp"
+        android:layout_marginBottom="76dp"
+        android:background="@drawable/icons_rounded_borders_background"
+        android:fontFamily="@font/round_regular"
+        android:paddingTop="8dp"
+        android:textAlignment="center"
+        android:textColor="@color/text_white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/generateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/round_regular"
+        android:text="@string/generate"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/round_regular"
+        android:text="@string/result"
+        android:textColor="@color/text_white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/resultTextView"
+        app:layout_constraintStart_toStartOf="@+id/resultTextView" />
+
+    <TextView
+        android:id="@+id/warningTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/light_green"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/generateButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/drawOptionsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/round_regular"
+        android:text="Draw options:"
+        android:textColor="@color/text_white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/noRepeatSwitch"
+        app:layout_constraintEnd_toEndOf="@+id/noRepeatSwitch"
+        app:layout_constraintStart_toStartOf="@+id/noRepeatSwitch" />
+
+    <TextView
+        android:id="@+id/sortOptionsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/round_regular"
+        android:text="Sort options:"
+        android:textColor="@color/text_white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/ascendingSortwitch"
+        app:layout_constraintEnd_toEndOf="@+id/ascendingSortwitch"
+        app:layout_constraintStart_toStartOf="@+id/ascendingSortwitch" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
