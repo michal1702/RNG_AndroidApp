@@ -1,1 +1,1 @@
-# RNG_KotlinApp
+# RNG_AndroidApp
