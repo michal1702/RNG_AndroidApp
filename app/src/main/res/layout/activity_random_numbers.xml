@@ -20,7 +20,7 @@
         android:inputType="numberSigned"
         android:textColor="@color/text_white"
         android:textColorHint="@color/text_white"
-        android:textSize="25sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/upperLimitTextEdit"
         app:layout_constraintEnd_toStartOf="@+id/upperLimitTextEdit"
         app:layout_constraintTop_toTopOf="@+id/upperLimitTextEdit"
@@ -30,8 +30,8 @@
         android:id="@+id/upperLimitTextEdit"
         android:layout_width="111dp"
         android:layout_height="65dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="92dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="40dp"
         android:backgroundTint="@color/light_green"
         android:ems="10"
         android:fontFamily="@font/round_regular"
@@ -39,80 +39,62 @@
         android:inputType="numberSigned"
         android:textColor="@color/text_white"
         android:textColorHint="@color/text_white"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextNumberCount"
-        android:layout_width="198dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/light_green"
-        android:ems="10"
-        android:fontFamily="@font/round_regular"
-        android:hint="@string/numbers_count"
-        android:inputType="number"
-        android:textColor="@color/text_white"
-        android:textColorHint="@color/text_white"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/warningTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/sortOptionsTextView"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/noRepeatSwitch"
-        android:layout_width="160dp"
+        android:layout_width="170dp"
         android:layout_height="35dp"
         android:fontFamily="@font/round_regular"
         android:text="@string/noRepeat"
         android:textColor="@color/text_white"
-        android:textSize="18sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/decimalSwitch"
         app:layout_constraintStart_toStartOf="@+id/decimalSwitch" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/decimalSwitch"
-        android:layout_width="160dp"
+        android:layout_width="170dp"
         android:layout_height="35dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="36dp"
         android:fontFamily="@font/round_regular"
         android:text="@string/include_decimal"
         android:textColor="@color/text_white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/descendingSortwitch"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@+id/descendingSortSwitch"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/ascendingSortwitch"
-        android:layout_width="160dp"
+        android:id="@+id/ascendingSortSwitch"
+        android:layout_width="170dp"
         android:layout_height="35dp"
         android:fontFamily="@font/round_regular"
         android:text="Ascending"
         android:textColor="@color/text_white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/descendingSortwitch"
-        app:layout_constraintStart_toStartOf="@+id/descendingSortwitch" />
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/descendingSortSwitch"
+        app:layout_constraintStart_toStartOf="@+id/descendingSortSwitch" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/descendingSortwitch"
-        android:layout_width="160dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="40dp"
+        android:id="@+id/descendingSortSwitch"
+        android:layout_width="170dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
         android:fontFamily="@font/round_regular"
         android:text="Descending"
         android:textColor="@color/text_white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextNumberCount"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/numbersCountSpinner"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/resultTextView"
-        android:layout_width="257dp"
-        android:layout_height="169dp"
-        android:layout_marginBottom="76dp"
+        android:layout_width="235dp"
+        android:layout_height="108dp"
+        android:layout_marginBottom="96dp"
         android:background="@drawable/icons_rounded_borders_background"
         android:fontFamily="@font/round_regular"
         android:paddingTop="8dp"
@@ -150,36 +132,70 @@
         android:id="@+id/warningTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:textColor="@color/light_green"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/generateButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/drawOptionsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
         android:fontFamily="@font/round_regular"
         android:text="Draw options:"
         android:textColor="@color/text_white"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/noRepeatSwitch"
         app:layout_constraintEnd_toEndOf="@+id/noRepeatSwitch"
+        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="@+id/noRepeatSwitch" />
 
     <TextView
         android:id="@+id/sortOptionsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
         android:fontFamily="@font/round_regular"
         android:text="Sort options:"
         android:textColor="@color/text_white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/ascendingSortSwitch"
+        app:layout_constraintEnd_toEndOf="@+id/ascendingSortSwitch"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="@+id/ascendingSortSwitch" />
+
+    <Spinner
+        style="@style/Widget.AppCompat.EditText"
+        android:backgroundTint="@color/light_green"
+        android:id="@+id/numbersCountSpinner"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/round_regular"
+        android:spinnerMode="dropdown"
+        android:textColor="@color/text_white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/ascendingSortwitch"
-        app:layout_constraintEnd_toEndOf="@+id/ascendingSortwitch"
-        app:layout_constraintStart_toStartOf="@+id/ascendingSortwitch" />
+        app:layout_constraintBottom_toTopOf="@+id/warningTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.752"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/numbersCountTextView"
+        android:layout_width="155dp"
+        android:layout_height="43dp"
+        android:fontFamily="@font/round_regular"
+        android:paddingVertical="10dp"
+        android:text="Numbers count:"
+        android:textColor="@color/text_white"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@+id/numbersCountSpinner"
+        app:layout_constraintEnd_toStartOf="@+id/numbersCountSpinner"
+        app:layout_constraintTop_toTopOf="@+id/numbersCountSpinner"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
