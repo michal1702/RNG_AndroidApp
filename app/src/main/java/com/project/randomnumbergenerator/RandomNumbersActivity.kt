@@ -34,7 +34,6 @@ class RandomNumbersActivity : AppCompatActivity(){
         setContentView(R.layout.activity_random_numbers)
         setControls()
         modifyActionBar()
-        initSpinner()
 
         drawButton.setOnClickListener{
             resultBox.text=""
@@ -102,17 +101,27 @@ class RandomNumbersActivity : AppCompatActivity(){
         }
         //endregion
     }
+
+    /**
+     * @param view view of rng activity
+     */
     fun hideKeyboard(view: View) {
         val inputMethodManager: InputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 
+    /**
+     * Changes style of action bar
+     */
     private fun modifyActionBar(){
         val actionBar = supportActionBar
         actionBar!!.title = "Random words"
         actionBar.setDisplayHomeAsUpEnabled(true)
     }
 
+    /**
+     * Sets up all controls (buttons, switches, etc.)
+     */
     private fun setControls(){
         lowerLimitBox = findViewById(R.id.lowerLimitTextEdit)
         upperLimitBox = findViewById(R.id.upperLimitTextEdit)
@@ -122,16 +131,13 @@ class RandomNumbersActivity : AppCompatActivity(){
         warningBox = findViewById(R.id.warningTextView)
         decimalSwitch = findViewById(R.id.decimalSwitch)
         spinner = findViewById(R.id.numbersCountSpinner)
-        ascendingSwitch = findViewById(R.id.ascendingSortSwitch)
-        descendingSwitch = findViewById(R.id.descendingSortSwitch)
-        repeatSwitch = findViewById(R.id.noRepeatSwitch)
-    }
-
-    private fun initSpinner(){
         val spinnerAdapter = ArrayAdapter.createFromResource(this,
                 R.array.count,
                 R.layout.spinner_layout)
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout)
         spinner.adapter = spinnerAdapter
+        ascendingSwitch = findViewById(R.id.ascendingSortSwitch)
+        descendingSwitch = findViewById(R.id.descendingSortSwitch)
+        repeatSwitch = findViewById(R.id.noRepeatSwitch)
     }
 }

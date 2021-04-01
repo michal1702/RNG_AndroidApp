@@ -21,6 +21,11 @@ class RandomNumbersGenerator(private val numbersCount: Int,
         None(0)
     }
 
+    /**
+     *  Set sorting method
+     *  @param asc ascendingSwitch value
+     *  @param desc descendingSwitch value
+     */
     fun setSortOptions(asc: Boolean, desc: Boolean){
         sorting = when {
             asc -> SortOptions.Ascending
@@ -29,10 +34,18 @@ class RandomNumbersGenerator(private val numbersCount: Int,
         }
     }
 
+    /**
+     * Checks if lower limit isn't greater than upper limit
+     * @return if lower limit is greater than upper limit
+     */
     fun validate(): Boolean{
         return this.lowerLimit!! < this.upperLimit!!
     }
 
+    /**
+     * Draws array of doubles and eventually sorts it
+     * @return double array
+     */
     fun drawDoubles(): Array<Double>{
         val doubleList = mutableListOf<Double>()
         for (i in 0 until numbersCount) {
@@ -45,6 +58,10 @@ class RandomNumbersGenerator(private val numbersCount: Int,
         return arr
     }
 
+    /**
+     * Draws array of ints with repetitions and eventually sorts it
+     * @return int array
+     */
     fun drawIntsWithRepetition(): Array<Int>{
         val intList = mutableListOf<Int>()
         for (i in 0 until numbersCount) {
@@ -56,6 +73,10 @@ class RandomNumbersGenerator(private val numbersCount: Int,
         return arr
     }
 
+    /**
+     * Draws array of ints without repetitions and eventually sorts it
+     * @return int array
+     */
     fun drawIntsWithoutRepetition(): Array<Int>{
         val numbersInRange = (this.upperLimit!! - this.lowerLimit!!)+1
         val arr: Array<Int> = if(numbersInRange<this.numbersCount) (this.lowerLimit!! .. this.upperLimit!!).shuffled().take(numbersInRange).toTypedArray()
@@ -66,6 +87,10 @@ class RandomNumbersGenerator(private val numbersCount: Int,
         return arr
     }
 
+    /**
+     * Checks a count of numbers to be drawn
+     * @return numbers count
+     */
     fun drawWithoutRepetitionNumberCount(): Int{
         return if((this.upperLimit!! - this.lowerLimit!!)+1 < this.numbersCount)
             (this.upperLimit!! - this.lowerLimit!!)+1
