@@ -13,42 +13,44 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 
 class RandomWordsActivity : AppCompatActivity(){
 
-    private lateinit var wordsArray: MutableList<String>
     private lateinit var addButton: Button
     private lateinit var wordBox: EditText
-    private lateinit var wordsTextView: TextView
     private lateinit var warningBox: TextView
     private lateinit var clearButton: Button
     private lateinit var generateButton: Button
     private lateinit var resultTextBox: TextView
-    private lateinit var listDescription: TextView
     private lateinit var micorphone: ImageView
+    private lateinit var wordsAdapter: WordsListAdapter
+    private lateinit var wordsListView: ListView
+    private lateinit var wordsList: ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_random_words)
-
-        setVariables()
+        setControls()
         modifyActionBar()
+        wordsList = ArrayList()
+
         //region onClickListeners
         addButton.setOnClickListener{
             addButtonClick()
         }
 
         clearButton.setOnClickListener {
-            wordsTextView.text=""
+            wordsList.clear()
+            wordsAdapter.notifyDataSetChanged()
             resultTextBox.text=""
-            listDescription.text="Words list"+"\u2026"
-            wordsArray.clear()
         }
 
         generateButton.setOnClickListener{
-            if(wordsArray.isNotEmpty()) {
-                resultTextBox.text = wordsArray[Random.nextInt(0, wordsArray.size)]
+            if(wordsList.isNotEmpty()) {
+                val position = Random.nextInt(0, wordsList.size)
+                resultTextBox.text = wordsList[position]
             }
         }
 
@@ -63,48 +65,57 @@ class RandomWordsActivity : AppCompatActivity(){
         })
     }
 
+    /**
+     * Method hides keyboard on focus off
+     * @param view view of this activity
+     */
     fun hideKeyboard(view: View) {
         val inputMethodManager: InputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 
-    private fun setVariables(){
-        wordsArray = mutableListOf()
+    /**
+     * Sets up controls like buttons, text fields, etc.
+     */
+    private fun setControls(){
         addButton = findViewById(R.id.addButton)
         wordBox = findViewById(R.id.wordTextEdit)
-        wordsTextView = findViewById(R.id.wordsTextView)
-        wordsTextView.movementMethod = ScrollingMovementMethod()
         warningBox = findViewById(R.id.wordWarningTextView)
         clearButton = findViewById(R.id.clearButton)
         generateButton = findViewById(R.id.generateWordButton)
         resultTextBox = findViewById(R.id.resultTextView)
-        listDescription = findViewById(R.id.listViewDescriptionTextView)
         micorphone = findViewById(R.id.microphoneImageView)
+        wordsListView = findViewById(R.id.wordsListView)
     }
 
+    /**
+     * Sets up action bar
+     */
     private fun modifyActionBar(){
         val actionBar = supportActionBar
         actionBar!!.title = "Random words"
         actionBar.setDisplayHomeAsUpEnabled(true)
     }
 
+    /**
+     * Method responsible for adding word to the list
+     */
     @SuppressLint("SetTextI18n")
     private fun addButtonClick(){
         if(wordBox.text.isEmpty()) {
             warningBox.text = "Enter a word"
         }
-        else{
-            wordsArray.add(wordBox.text.toString())
-            listDescription.text=""
-        }
-        wordsTextView.text=""
-        wordBox.setText("")
-        for (word in wordsArray) {
-            wordsTextView.append(" \u2022 ")
-            wordsTextView.append(word + "\n")
+        else {
+            wordsList.add(wordBox.text.toString() + "\n")
+            wordsAdapter = WordsListAdapter(applicationContext, wordsList)
+            wordsListView.adapter = wordsAdapter
+            wordBox.setText("")
         }
     }
 
+    /**
+     * Method gets speech input and converts it to text
+     */
     @SuppressLint("QueryPermissionsNeeded")
     private fun getSpeechInput() {
         val speechIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
@@ -118,7 +129,6 @@ class RandomWordsActivity : AppCompatActivity(){
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         when(requestCode){
             10->{
                 if(resultCode == Activity.RESULT_OK && data != null){
