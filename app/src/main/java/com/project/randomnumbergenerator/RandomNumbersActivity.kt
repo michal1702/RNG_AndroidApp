@@ -41,6 +41,7 @@ class RandomNumbersActivity : AppCompatActivity(){
             val numbersCount = spinner.selectedItem.toString().toInt()
             if(!lowerLimitBox.text.isNullOrEmpty() && !upperLimitBox.text.isNullOrEmpty()) {
                 val rng = RandomNumbersGenerator(numbersCount, lowerLimitBox, upperLimitBox)
+                rng.setSortOptions(ascendingSwitch.isChecked, descendingSwitch.isChecked)
                 if (rng.validate()) {
                     when (decimalSwitch.isChecked) {
                         true -> {
