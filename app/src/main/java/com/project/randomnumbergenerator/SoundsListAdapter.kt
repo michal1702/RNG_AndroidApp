@@ -37,7 +37,7 @@ class SoundsListAdapter(var context: Context, var arraySoundsItems: ArrayList<So
         }
 
         playButton.setOnClickListener{
-            player.playRecording(this.arraySoundsItems[position].filename)
+            player.playSound(this.arraySoundsItems[position].filename)
         }
         return view
     }

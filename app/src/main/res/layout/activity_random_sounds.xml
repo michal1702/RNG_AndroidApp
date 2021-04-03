@@ -10,8 +10,9 @@
 
     <ListView
         android:id="@+id/soundsListView"
-        android:layout_width="409dp"
-        android:layout_height="488dp"
+        android:layout_width="364dp"
+        android:layout_height="303dp"
+        android:layout_marginTop="16dp"
         android:background="@color/dark_gray"
         android:divider="#21be97"
         android:dividerHeight="2dp"
@@ -22,29 +23,82 @@
 
     <ImageView
         android:id="@+id/recordSoundImageView"
-        android:layout_width="150dp"
+        android:layout_width="95dp"
         android:layout_height="50dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/icons_rounded_borders_background"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/soundsListView"
         app:layout_constraintTop_toBottomOf="@+id/soundsListView"
         app:srcCompat="@drawable/ic_microphone" />
+
+    <EditText
+        android:id="@+id/soundNameEditText"
+        android:layout_width="196dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="@color/light_green"
+        android:ems="10"
+        android:fontFamily="@font/round_regular"
+        android:hint="Sound name"
+        android:inputType="textPersonName"
+        android:textColor="@color/text_white"
+        android:textColorHint="@color/text_white"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@+id/recordSoundImageView"
+        app:layout_constraintEnd_toStartOf="@+id/recordSoundImageView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/soundsListView"
+        app:layout_constraintTop_toTopOf="@+id/recordSoundImageView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/generateSoundButton"
         android:layout_width="150dp"
         android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/generate"
-        android:textSize="20sp"
         android:fontFamily="@font/round_regular"
+        android:text="@string/generate"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@+id/clearSoundsButton"
+        app:layout_constraintStart_toStartOf="@+id/soundNameEditText"
+        app:layout_constraintTop_toTopOf="@+id/clearSoundsButton" />
+
+    <Button
+        android:id="@+id/clearSoundsButton"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/round_regular"
+        android:text="Clear"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="@+id/recordSoundImageView"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/recordSoundImageView"
         app:layout_constraintTop_toBottomOf="@+id/recordSoundImageView" />
+
+    <ProgressBar
+        android:id="@+id/soundProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="193dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="36dp"
+        android:scaleY="2"
+        app:layout_constraintEnd_toStartOf="@+id/soundTimeTextView"
+        app:layout_constraintHorizontal_bias="0.826"
+        app:layout_constraintStart_toStartOf="@+id/generateSoundButton"
+        app:layout_constraintTop_toBottomOf="@+id/clearSoundsButton" />
+
+    <TextView
+        android:id="@+id/soundTimeTextView"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/round_regular"
+        android:text="00:00"
+        android:textColor="@color/text_white"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@+id/soundProgressBar"
+        app:layout_constraintEnd_toEndOf="@+id/clearSoundsButton"
+        app:layout_constraintTop_toTopOf="@+id/soundProgressBar"
+        app:layout_constraintVertical_bias="0.47" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,6 @@ import android.media.MediaRecorder
 import android.widget.Toast
 import java.io.File
 import java.io.IOException
-import java.lang.Exception
 
 class SoundManager(var context: Context) {
     private var recorder: MediaRecorder? = null
@@ -14,10 +13,20 @@ class SoundManager(var context: Context) {
     private var outputPath: String? = null
 
     init {
-        outputPath = context.cacheDir.absolutePath
+        this.outputPath = this.context.cacheDir.absolutePath
+        this.player = MediaPlayer()
+        this.player!!.setOnCompletionListener {
+            this.player?.release()
+        }
     }
+
+    /**
+     * Method responsible for recording. It saves a recorded sound in application cache with *.3gp format.
+     * @param context app context
+     * @param fileName name of the file.
+     */
     fun startRecording(context: Context, fileName: String?){
-        recorder = MediaRecorder().apply {
+        this.recorder = MediaRecorder().apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
             setOutputFile("$outputPath/$fileName.3gp")
@@ -32,33 +41,59 @@ class SoundManager(var context: Context) {
         }
     }
 
+    /**
+     * It is complementary method for startRecording which stops MediaRecorder and releases it
+     */
     fun stopRecording(){
-        recorder?.apply {
+        this.recorder?.apply {
             stop()
             release()
             Toast.makeText(context, "Recording stopped", Toast.LENGTH_SHORT).show()
         }
-        recorder = null
+        this.recorder = null
     }
 
-    fun playRecording(fileName: String?){
-        player = MediaPlayer()
-        player?.apply {
-            try{
+    /**
+     * Plays sound file with given filename
+     * @param fileName file name
+     */
+    fun playSound(fileName: String?){
+        this.player = MediaPlayer().apply {
+            try {
                 setDataSource("$outputPath/$fileName.3gp")
                 prepare()
                 start()
-            }catch(e: IOException){
+            } catch (e: IOException) {
                 Toast.makeText(context, "Cannot play this sound", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
+    /**
+     * Method removes file with given name from cache
+     * @param fileName file name
+     */
     fun removeFile(fileName: String?){
         try {
-            File("$outputPath/$fileName.3gp").delete()
+            File("${this.outputPath}/$fileName.3gp").delete()
         }catch (e: Exception){
-            Toast.makeText(context, "Cannot delete this file!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this.context, "Cannot delete this file!", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    /**
+     * Returns current position in audio file
+     * @return current position in milliseconds
+     */
+    fun getCurrentPosition(): Int{
+        return this.player?.currentPosition!!
+    }
+
+    /**
+     * Returns duration of the audio file
+     * @return duration in milliseconds
+     */
+    fun getDuration(): Int{
+        return this.player?.duration!!
     }
 }
