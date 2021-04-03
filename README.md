@@ -3,6 +3,6 @@ A simple app that is all in one randomizer:<br>
 -random number generator<br>
 -random words generator<br>
 -random sounds generator<br>
--password generator<br>
--coin toss<br>
--dice roll<br>
+<s>-password generator<br></s>
+<s>-coin toss<br></s>
+<s>-dice roll<br></s>
