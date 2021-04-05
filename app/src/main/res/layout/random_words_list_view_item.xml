@@ -10,7 +10,7 @@
             android:id="@+id/wordsListViewItem"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:background="@drawable/list_item_background" />
+            android:background="@color/dark_gray" />
 
         <TextView
             android:id="@+id/wordNameTextView"
