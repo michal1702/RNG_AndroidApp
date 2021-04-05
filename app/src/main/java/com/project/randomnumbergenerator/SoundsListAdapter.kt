@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
+import java.util.concurrent.TimeUnit
 
 class SoundsListAdapter(var context: Context, var arraySoundsItems: ArrayList<SoundsListItem>):BaseAdapter() {
+    private var isPlaying: Boolean = false
     override fun getItem(position: Int): Any {
         return this.arraySoundsItems[position]
     }
@@ -27,6 +30,7 @@ class SoundsListAdapter(var context: Context, var arraySoundsItems: ArrayList<So
         val deleteButton: ImageView = view.findViewById(R.id.removeButtonImage)
         val playButton: ImageView = view.findViewById(R.id.playButtonImage)
         val soundName: TextView = view.findViewById(R.id.soundName)
+        val progressBar: ProgressBar = view.findViewById(R.id.progressBarList)
         val player = SoundManager(this.context)
         soundName.text = this.arraySoundsItems[position].nameOfSound
 
@@ -37,7 +41,27 @@ class SoundsListAdapter(var context: Context, var arraySoundsItems: ArrayList<So
         }
 
         playButton.setOnClickListener{
-            player.playSound(this.arraySoundsItems[position].filename)
+            if(!isPlaying) {
+                isPlaying = true
+                playButton.setImageResource(R.drawable.ic_skip)
+                var currentPosition: Int
+                player.playSound(this.arraySoundsItems[position].filename)
+                Thread{
+                    val duration = player.getDuration()
+                    progressBar.max = duration
+                    while(player.getCurrentPosition() < duration) {
+                        currentPosition = player.getCurrentPosition()
+                        progressBar.progress = currentPosition
+                    }
+                    playButton.setImageResource(R.drawable.ic_play)
+                    progressBar.progress = 0
+                }.start()
+            }
+            else{
+                playButton.setImageResource(R.drawable.ic_play)
+                player.skipSound()
+                isPlaying = false
+            }
         }
         return view
     }

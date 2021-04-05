@@ -24,6 +24,7 @@ class RandomSoundsActivity : AppCompatActivity() {
     private lateinit var soundsListAdapter: SoundsListAdapter
     private lateinit var soundProgressBar: ProgressBar
     private lateinit var soundTime: TextView
+    private lateinit var skipSound: ImageView
     private lateinit var soundsArray: ArrayList<SoundsListItem>
     private var permissionToRecordAccepted = false
     private var isRecording = false
@@ -62,12 +63,13 @@ class RandomSoundsActivity : AppCompatActivity() {
             if(soundsArray.isNotEmpty()){
                 val position = Random.nextInt(0, soundsArray.size)
                 Thread {
-                    var currentPosition = 0
+                    var currentPosition: Int
                     manager?.playSound("sound-$position")
                     runOnUiThread {
                         drawButton.isEnabled = false
                         clearSounds.isEnabled = false
                         recordButton.isEnabled = false
+                        skipSound.isEnabled = true
                     }
                     val duration = manager?.getDuration()!!
                     soundProgressBar.max = duration
@@ -86,6 +88,7 @@ class RandomSoundsActivity : AppCompatActivity() {
                         drawButton.isEnabled = true
                         clearSounds.isEnabled = true
                         recordButton.isEnabled = true
+                        skipSound.isEnabled = false
                     }
                     soundProgressBar.progress = 0
                 }.start()
@@ -94,8 +97,14 @@ class RandomSoundsActivity : AppCompatActivity() {
         }
 
         clearSounds.setOnClickListener{
-            soundsArray.clear()
-            soundsListAdapter.notifyDataSetChanged()
+            if(soundsArray.isNotEmpty()) {
+                soundsArray.clear()
+                soundsListAdapter.notifyDataSetChanged()
+            }
+        }
+
+        skipSound.setOnClickListener{
+            manager?.skipSound()
         }
     }
 
@@ -110,6 +119,8 @@ class RandomSoundsActivity : AppCompatActivity() {
         clearSounds = findViewById(R.id.clearSoundsButton)
         soundProgressBar = findViewById(R.id.soundProgressBar)
         soundTime = findViewById(R.id.soundTimeTextView)
+        skipSound = findViewById(R.id.skipSoundImageView)
+        skipSound.isEnabled = false
     }
 
     override fun onRequestPermissionsResult(requestCode: Int,

@@ -10,10 +10,10 @@
 
     <ListView
         android:id="@+id/soundsListView"
-        android:layout_width="364dp"
-        android:layout_height="303dp"
+        android:layout_width="420dp"
+        android:layout_height="330dp"
         android:layout_marginTop="16dp"
-        android:background="@color/dark_gray"
+        android:background="@drawable/list_item_background"
         android:divider="#21be97"
         android:dividerHeight="2dp"
         android:scrollbars="horizontal"
@@ -25,8 +25,8 @@
         android:id="@+id/recordSoundImageView"
         android:layout_width="95dp"
         android:layout_height="50dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="48dp"
         android:background="@drawable/icons_rounded_borders_background"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
@@ -100,5 +100,20 @@
         app:layout_constraintEnd_toEndOf="@+id/clearSoundsButton"
         app:layout_constraintTop_toTopOf="@+id/soundProgressBar"
         app:layout_constraintVertical_bias="0.47" />
+
+    <ImageView
+        android:id="@+id/skipSoundImageView"
+        android:layout_width="37dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="2dp"
+        android:padding="5dp"
+        android:background="@drawable/icons_rounded_borders_background"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/soundProgressBar"
+        app:layout_constraintEnd_toStartOf="@+id/soundProgressBar"
+        app:layout_constraintTop_toTopOf="@+id/soundProgressBar"
+        app:srcCompat="@drawable/ic_skip" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

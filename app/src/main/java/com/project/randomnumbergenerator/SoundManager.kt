@@ -17,6 +17,7 @@ class SoundManager(var context: Context) {
         this.player = MediaPlayer()
         this.player!!.setOnCompletionListener {
             this.player?.release()
+            this.player = null
         }
     }
 
@@ -95,5 +96,13 @@ class SoundManager(var context: Context) {
      */
     fun getDuration(): Int{
         return this.player?.duration!!
+    }
+
+    fun skipSound(){
+        this.player?.apply {
+            reset()
+            release()
+        }
+        this.player = null
     }
 }

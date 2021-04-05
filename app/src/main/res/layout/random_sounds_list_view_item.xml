@@ -13,7 +13,7 @@
             android:id="@+id/soundsListViewItem"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/list_item_background" />
+            android:background="@color/dark_gray" />
 
         <ImageView
             android:id="@+id/playButtonImage"
@@ -22,7 +22,7 @@
             android:layout_alignTop="@+id/removeButtonImage"
             android:layout_alignBottom="@+id/removeButtonImage"
             android:layout_marginTop="-1dp"
-            android:layout_marginEnd="15dp"
+            android:layout_marginEnd="5dp"
             android:layout_marginBottom="1dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
@@ -39,7 +39,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="11dp"
-            android:layout_marginEnd="14dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/icons_rounded_borders_background"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
@@ -49,19 +49,35 @@
 
         <TextView
             android:id="@+id/soundName"
-            android:layout_width="wrap_content"
+            android:layout_width="229dp"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/playButtonImage"
-            android:layout_alignBottom="@+id/playButtonImage"
+            android:layout_alignTop="@+id/progressBarList"
+            android:layout_alignBottom="@+id/progressBarList"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="-2dp"
-            android:layout_marginBottom="-1dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="-7dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="-8dp"
+            android:layout_toStartOf="@+id/progressBarList"
             android:fontFamily="@font/round_regular"
-            android:gravity="center"
-
+            android:gravity="start"
+            android:scrollbars="horizontal"
             android:text="Sound no."
             android:textColor="@color/text_white"
             android:textSize="25sp" />
+
+        <ProgressBar
+            android:id="@+id/progressBarList"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/playButtonImage"
+            android:layout_alignBottom="@+id/playButtonImage"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toStartOf="@+id/playButtonImage"
+            android:scaleY="1.5" />
+
     </RelativeLayout>
 </LinearLayout>
