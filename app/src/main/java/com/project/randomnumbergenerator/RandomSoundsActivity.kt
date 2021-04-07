@@ -28,6 +28,7 @@ class RandomSoundsActivity : AppCompatActivity() {
     private lateinit var soundsArray: ArrayList<SoundsListItem>
     private var permissionToRecordAccepted = false
     private var isRecording = false
+    private var skip = false
     private var permissions: Array<String> = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     private var manager: SoundManager? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,34 +64,7 @@ class RandomSoundsActivity : AppCompatActivity() {
             if(soundsArray.isNotEmpty()){
                 val position = Random.nextInt(0, soundsArray.size)
                 Thread {
-                    var currentPosition: Int
-                    manager?.playSound("sound-$position")
-                    runOnUiThread {
-                        drawButton.isEnabled = false
-                        clearSounds.isEnabled = false
-                        recordButton.isEnabled = false
-                        skipSound.isEnabled = true
-                    }
-                    val duration = manager?.getDuration()!!
-                    soundProgressBar.max = duration
-                    while(manager?.getCurrentPosition()!! < duration) {
-                        currentPosition = manager?.getCurrentPosition()!!
-                        soundProgressBar.progress = currentPosition
-                        runOnUiThread {
-                            val stringFormat = String.format("%02d:%02d",
-                                    TimeUnit.MILLISECONDS.toMinutes(currentPosition.toLong()),
-                                    TimeUnit.MILLISECONDS.toSeconds(currentPosition.toLong()))
-                            soundTime.text = stringFormat
-                        }
-                    }
-                    runOnUiThread {
-                        soundTime.text = "00:00"
-                        drawButton.isEnabled = true
-                        clearSounds.isEnabled = true
-                        recordButton.isEnabled = true
-                        skipSound.isEnabled = false
-                    }
-                    soundProgressBar.progress = 0
+                    runSoundPlayingThread(position)
                 }.start()
                Toast.makeText(this, "Now playing: " + soundsArray[position].nameOfSound, Toast.LENGTH_SHORT).show()
             }
@@ -104,7 +78,7 @@ class RandomSoundsActivity : AppCompatActivity() {
         }
 
         skipSound.setOnClickListener{
-            manager?.skipSound()
+            skip = true
         }
     }
 
@@ -150,5 +124,45 @@ class RandomSoundsActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar!!.title = "Random sounds"
         actionBar.setDisplayHomeAsUpEnabled(true)
+    }
+
+    /**
+     * Runs another thread that plays sound drew by user
+     * @param soundName sound name
+     */
+    private fun runSoundPlayingThread(soundName: Int){
+        var currentPosition: Int
+        manager?.playSound("sound-$soundName")
+        runOnUiThread {
+            drawButton.isEnabled = false
+            clearSounds.isEnabled = false
+            recordButton.isEnabled = false
+            skipSound.isEnabled = true
+        }
+        val duration = manager?.getDuration()!!
+        soundProgressBar.max = duration
+        while(manager?.getCurrentPosition()!! < duration) {
+            currentPosition = manager?.getCurrentPosition()!!
+            soundProgressBar.progress = currentPosition
+            runOnUiThread {
+                val stringFormat = String.format("%02d:%02d",
+                    TimeUnit.MILLISECONDS.toMinutes(currentPosition.toLong()),
+                    TimeUnit.MILLISECONDS.toSeconds(currentPosition.toLong()))
+                soundTime.text = stringFormat
+            }
+            if(skip) {
+                manager?.skipSound()
+                skip = false
+                break
+            }
+        }
+        runOnUiThread {
+            soundTime.text = "00:00"
+            drawButton.isEnabled = true
+            clearSounds.isEnabled = true
+            recordButton.isEnabled = true
+            skipSound.isEnabled = false
+        }
+        soundProgressBar.progress = 0
     }
 }

@@ -98,6 +98,9 @@ class SoundManager(var context: Context) {
         return this.player?.duration!!
     }
 
+    /**
+     * Method responsible for skipping sounds
+     */
     fun skipSound(){
         this.player?.apply {
             reset()
