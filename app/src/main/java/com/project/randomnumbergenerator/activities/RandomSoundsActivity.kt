@@ -1,4 +1,4 @@
-package com.project.randomnumbergenerator
+package com.project.randomnumbergenerator.activities
 
 import android.Manifest
 import android.app.Activity
@@ -9,6 +9,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.project.randomnumbergenerator.R
+import com.project.randomnumbergenerator.model.SoundManager
+import com.project.randomnumbergenerator.listitems.SoundsListItem
+import com.project.randomnumbergenerator.adapters.SoundsListAdapter
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 

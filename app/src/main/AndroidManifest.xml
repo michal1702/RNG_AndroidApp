@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.project.randomnumbergenerator">
+
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.RandomNumberGenerator"
-        android:requestLegacyExternalStorage="true">
-        <activity android:name=".RandomSoundsActivity"
-            android:parentActivityName=".MainActivity">
-        </activity>
+        android:theme="@style/Theme.RandomNumberGenerator">
         <activity
-            android:name=".RandomWordsActivity"
-            android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="adjustNothing">
-        </activity>
+            android:name=".activities.RandomPasswordActivity"
+            android:parentActivityName=".activities.MainActivity"/>
         <activity
-            android:name=".RandomNumbersActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity">
+            android:name=".activities.RandomSoundsActivity"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity
+            android:name=".activities.RandomWordsActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".activities.RandomNumbersActivity"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

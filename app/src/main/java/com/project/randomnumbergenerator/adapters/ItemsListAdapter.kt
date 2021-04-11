@@ -1,4 +1,4 @@
-package com.project.randomnumbergenerator
+package com.project.randomnumbergenerator.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.project.randomnumbergenerator.listitems.ListItem
+import com.project.randomnumbergenerator.R
 
-class WordsListAdapter(private var context: Context, private var arrayListItem: ArrayList<String>): BaseAdapter() {
+class ItemsListAdapter(private var context: Context, var arrayListItem: ArrayList<ListItem>) : BaseAdapter() {
+
     override fun getItem(position: Int): Any {
         return arrayListItem[position]
     }
@@ -23,15 +26,15 @@ class WordsListAdapter(private var context: Context, private var arrayListItem: 
 
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view:View = View.inflate(context,R.layout.random_words_list_view_item,null)
-        val wordTextView: TextView = view.findViewById(R.id.wordNameTextView)
-        val deleteButton: ImageView = view.findViewById(R.id.removeButtonImage)
-        wordTextView.text = arrayListItem[position]
+        val view:View = View.inflate(context, R.layout.list_view_item,null)
 
-        deleteButton.setOnClickListener{
-            this.arrayListItem.removeAt(position)
-            notifyDataSetChanged()
-        }
+        val itemIcon:ImageView = view.findViewById(R.id.item_icon)
+        val itemTitle:TextView = view.findViewById(R.id.item_title)
+
+        val listItem: ListItem = arrayListItem[position]
+        itemIcon.setImageResource(listItem.icons!!)
+        itemTitle.text = listItem.title
+
         return view
     }
 }

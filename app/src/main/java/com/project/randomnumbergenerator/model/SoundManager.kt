@@ -1,4 +1,4 @@
-package com.project.randomnumbergenerator
+package com.project.randomnumbergenerator.model
 
 import android.content.Context
 import android.media.MediaPlayer

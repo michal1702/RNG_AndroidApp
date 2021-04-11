@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/dark_gray"
     android:onClick="hideKeyboard"
-    tools:context=".RandomNumbersActivity">
+    tools:context=".activities.RandomNumbersActivity">
 
     <EditText
         android:id="@+id/lowerLimitTextEdit"

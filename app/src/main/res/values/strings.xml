@@ -29,4 +29,6 @@
         <item>14</item>
         <item>15</item>
     </string-array>
+    <string name="tab_text_1">User Friendly Password</string>
+    <string name="tab_text_2">Fully Random Password</string>
 </resources>
