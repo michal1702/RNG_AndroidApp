@@ -28,6 +28,8 @@ class RandomNumbersActivity : AppCompatActivity(){
     private lateinit var descendingSwitch: com.google.android.material.switchmaterial.SwitchMaterial
     private lateinit var spinner: Spinner
 
+    private val drawButtonClickListener = View.OnClickListener { drawButtonClicked() }
+
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,42 +37,7 @@ class RandomNumbersActivity : AppCompatActivity(){
         setControls()
         modifyActionBar()
 
-        drawButton.setOnClickListener{
-            resultBox.text=""
-            val numbersCount = spinner.selectedItem.toString().toInt()
-            if(!lowerLimitBox.text.isNullOrEmpty() && !upperLimitBox.text.isNullOrEmpty()) {
-                val rng =
-                        RandomNumbersGenerator(
-                                numbersCount,
-                                lowerLimitBox,
-                                upperLimitBox
-                        )
-                rng.setSortOptions(ascendingSwitch.isChecked, descendingSwitch.isChecked)
-                if (rng.validate()) {
-                    when (decimalSwitch.isChecked) {
-                        true -> {
-                            val list = rng.drawDoubles()
-                            for (i in 0 until numbersCount) {
-                                val decimalFormat = DecimalFormat("##.###")
-                                resultBox.append(decimalFormat.format(list[i]).toString() + "   ")
-                            }
-                        }
-                        false -> {
-                            if(repeatSwitch.isChecked) {
-                                val list = rng.drawIntsWithRepetition()
-                                for (i in 0 until numbersCount)
-                                    resultBox.append(list[i].toString() + "  ")
-                            }else{
-                                val list = rng.drawIntsWithoutRepetition()
-                                val end = rng.drawWithoutRepetitionNumberCount()
-                                for (i in 0 until end)
-                                    resultBox.append(list[i].toString() + "  ")
-                            }
-                        }
-                    }
-                }else warningBox.text = "Lower limit cannot be greater than upper limit!"
-            }else warningBox.text = "Correct all of the input fields!"
-        }
+        drawButton.setOnClickListener(drawButtonClickListener)
         //region textChangedListeners
         lowerLimitBox.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
@@ -145,5 +112,45 @@ class RandomNumbersActivity : AppCompatActivity(){
         ascendingSwitch = findViewById(R.id.ascendingSortSwitch)
         descendingSwitch = findViewById(R.id.descendingSortSwitch)
         repeatSwitch = findViewById(R.id.noRepeatSwitch)
+    }
+
+    /**
+     * Action performed on draw button clicked
+     */
+    private fun drawButtonClicked(){
+        resultBox.text=""
+        val numbersCount = spinner.selectedItem.toString().toInt()
+        if(!lowerLimitBox.text.isNullOrEmpty() && !upperLimitBox.text.isNullOrEmpty()) {
+            val rng =
+                    RandomNumbersGenerator(
+                            numbersCount,
+                            lowerLimitBox,
+                            upperLimitBox
+                    )
+            rng.setSortOptions(ascendingSwitch.isChecked, descendingSwitch.isChecked)
+            if (rng.validate()) {
+                when (decimalSwitch.isChecked) {
+                    true -> {
+                        val list = rng.drawDoubles()
+                        for (i in 0 until numbersCount) {
+                            val decimalFormat = DecimalFormat("##.###")
+                            resultBox.append(decimalFormat.format(list[i]).toString() + "   ")
+                        }
+                    }
+                    false -> {
+                        if(repeatSwitch.isChecked) {
+                            val list = rng.drawIntsWithRepetition()
+                            for (i in 0 until numbersCount)
+                                resultBox.append(list[i].toString() + "  ")
+                        }else{
+                            val list = rng.drawIntsWithoutRepetition()
+                            val end = rng.drawWithoutRepetitionNumberCount()
+                            for (i in 0 until end)
+                                resultBox.append(list[i].toString() + "  ")
+                        }
+                    }
+                }
+            }else warningBox.text = "Lower limit cannot be greater than upper limit!"
+        }else warningBox.text = "Correct all of the input fields!"
     }
 }

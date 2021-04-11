@@ -38,6 +38,11 @@ class RandomSoundsActivity : AppCompatActivity(), ToastManager {
     private var skip = false
     private var permissions: Array<String> = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     private var manager: SoundManager? = null
+
+    private val recordButtonClickListener = View.OnClickListener { recordButtonClicked() }
+    private val drawButtonClickListener = View.OnClickListener { drawButtonClicked() }
+    private val clearButtonClickListener = View.OnClickListener { clearButtonClicked() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_random_sounds)
@@ -47,46 +52,10 @@ class RandomSoundsActivity : AppCompatActivity(), ToastManager {
         setControls()
         modifyActionBar()
 
-        recordButton.setOnClickListener{
-            if(!soundNameTextEdit.text.isNullOrEmpty()) {
-                val itemNumber: Int = soundsArray.size
-                val soundName: String = soundNameTextEdit.text.toString()
-                if (isRecording) {
-                    recordButton.setImageResource(R.drawable.ic_microphone)
-                    manager?.stopRecording()
-                    soundsListAdapter = SoundsListAdapter(applicationContext, soundsArray)
-                    listView.adapter = soundsListAdapter
-                    soundsArray.add(SoundsListItem(soundName, "sound-$itemNumber"))
-                    isRecording = false
-                    soundNameTextEdit.setText("")
-                } else {
-                    manager?.startRecording(this, "sound-$itemNumber")
-                    recordButton.setImageResource(R.drawable.ic_pause)
-                    isRecording = true
-                }
-            }
-            else longToast("Enter sound name")
-        }
-        drawButton.setOnClickListener{
-            if(soundsArray.isNotEmpty()){
-                val position = Random.nextInt(0, soundsArray.size)
-                Thread {
-                    runSoundPlayingThread(position)
-                }.start()
-               shortToast("Now playing: " + soundsArray[position].nameOfSound)
-            }
-        }
-
-        clearSounds.setOnClickListener{
-            if(soundsArray.isNotEmpty()) {
-                soundsArray.clear()
-                soundsListAdapter.notifyDataSetChanged()
-            }
-        }
-
-        skipSound.setOnClickListener{
-            skip = true
-        }
+        recordButton.setOnClickListener(recordButtonClickListener)
+        drawButton.setOnClickListener(drawButtonClickListener)
+        clearSounds.setOnClickListener(clearButtonClickListener)
+        skipSound.setOnClickListener{ skip = true }
     }
 
     /**
@@ -171,5 +140,52 @@ class RandomSoundsActivity : AppCompatActivity(), ToastManager {
             skipSound.isEnabled = false
         }
         soundProgressBar.progress = 0
+    }
+
+    /**
+     * Record sound on clicked
+     */
+    private fun recordButtonClicked(){
+        if(!soundNameTextEdit.text.isNullOrEmpty()) {
+            val itemNumber: Int = soundsArray.size
+            val soundName: String = soundNameTextEdit.text.toString()
+            if (isRecording) {
+                recordButton.setImageResource(R.drawable.ic_microphone)
+                manager?.stopRecording()
+                soundsListAdapter = SoundsListAdapter(applicationContext, soundsArray)
+                listView.adapter = soundsListAdapter
+                soundsArray.add(SoundsListItem(soundName, "sound-$itemNumber"))
+                isRecording = false
+                soundNameTextEdit.setText("")
+            } else {
+                manager?.startRecording(this, "sound-$itemNumber")
+                recordButton.setImageResource(R.drawable.ic_pause)
+                isRecording = true
+            }
+        }
+        else longToast("Enter sound name")
+    }
+
+    /**
+     * Draw on click
+     */
+    private fun drawButtonClicked(){
+        if(soundsArray.isNotEmpty()){
+            val position = Random.nextInt(0, soundsArray.size)
+            Thread {
+                runSoundPlayingThread(position)
+            }.start()
+            shortToast("Now playing: " + soundsArray[position].nameOfSound)
+        }
+    }
+
+    /**
+     * Clears on click
+     */
+    private fun clearButtonClicked(){
+        if(soundsArray.isNotEmpty()) {
+            soundsArray.clear()
+            soundsListAdapter.notifyDataSetChanged()
+        }
     }
 }

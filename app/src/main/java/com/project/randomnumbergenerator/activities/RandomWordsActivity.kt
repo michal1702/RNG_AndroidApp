@@ -33,6 +33,11 @@ class RandomWordsActivity : AppCompatActivity(), ToastManager{
     private lateinit var wordsAdapter: WordsListAdapter
     private lateinit var wordsListView: ListView
     private lateinit var wordsList: ArrayList<String>
+
+    private val generateButtonClickListener = View.OnClickListener { generateButtonClicked() }
+    private val clearButtonClickListener = View.OnClickListener { clearButtonClicked() }
+    private val addButtonClickListener = View.OnClickListener { addButtonClicked() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_random_words)
@@ -40,28 +45,13 @@ class RandomWordsActivity : AppCompatActivity(), ToastManager{
         modifyActionBar()
         wordsList = ArrayList()
 
-        //region onClickListeners
-        addButton.setOnClickListener{
-            addButtonClick()
-        }
-
-        clearButton.setOnClickListener {
-            wordsList.clear()
-            wordsAdapter.notifyDataSetChanged()
-            resultTextBox.text=""
-        }
-
-        generateButton.setOnClickListener{
-            if(wordsList.isNotEmpty()) {
-                val position = Random.nextInt(0, wordsList.size)
-                resultTextBox.text = wordsList[position]
-            }
-        }
-
+        addButton.setOnClickListener(addButtonClickListener)
+        clearButton.setOnClickListener(clearButtonClickListener)
+        generateButton.setOnClickListener(generateButtonClickListener)
         micorphone.setOnClickListener{
             getSpeechInput()
         }
-        //endregion
+
         wordBox.addTextChangedListener(object :TextWatcher{
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -102,22 +92,6 @@ class RandomWordsActivity : AppCompatActivity(), ToastManager{
     }
 
     /**
-     * Method responsible for adding word to the list
-     */
-    @SuppressLint("SetTextI18n")
-    private fun addButtonClick(){
-        if(wordBox.text.isEmpty()) {
-            warningBox.text = "Enter a word"
-        }
-        else {
-            wordsList.add(wordBox.text.toString() + "\n")
-            wordsAdapter = WordsListAdapter(applicationContext, wordsList)
-            wordsListView.adapter = wordsAdapter
-            wordBox.setText("")
-        }
-    }
-
-    /**
      * Method gets speech input and converts it to text
      */
     @SuppressLint("QueryPermissionsNeeded")
@@ -141,6 +115,41 @@ class RandomWordsActivity : AppCompatActivity(), ToastManager{
                         wordBox.setText(text[0])
                 }
             }
+        }
+    }
+
+    /**
+     * Draw on clicked
+     */
+    private fun generateButtonClicked(){
+        if(wordsList.isNotEmpty()) {
+            val position = Random.nextInt(0, wordsList.size)
+            resultTextBox.text = wordsList[position]
+        }
+    }
+
+    /**
+     * Clear on clicked
+     */
+    private fun clearButtonClicked(){
+        wordsList.clear()
+        wordsAdapter.notifyDataSetChanged()
+        resultTextBox.text=""
+    }
+
+    /**
+     * Adds new word on clicked
+     */
+    @SuppressLint("SetTextI18n")
+    private fun addButtonClicked(){
+        if(wordBox.text.isEmpty()) {
+            warningBox.text = "Enter a word"
+        }
+        else {
+            wordsList.add(wordBox.text.toString() + "\n")
+            wordsAdapter = WordsListAdapter(applicationContext, wordsList)
+            wordsListView.adapter = wordsAdapter
+            wordBox.setText("")
         }
     }
 }
