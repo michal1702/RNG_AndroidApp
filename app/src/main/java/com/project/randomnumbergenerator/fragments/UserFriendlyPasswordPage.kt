@@ -18,8 +18,9 @@ import com.project.randomnumbergenerator.model.PasswordGenerator
 /**
  * A simple [Fragment] subclass.
  */
-class UserFriendlyPasswordPage : Fragment(){
+class UserFriendlyPasswordPage(context: Context) : Fragment(), ToastManager{
 
+    override val activityContext: Context = context
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,7 +54,7 @@ class UserFriendlyPasswordPage : Fragment(){
             }
 
             if(words<2){
-                Toast.makeText(this.context,"Enter at least 2 words",Toast.LENGTH_SHORT).show()
+                longToast("Enter at least 2 words")
             }else {
                 val passwordGenerator = PasswordGenerator()
                 generatedPassword.text = passwordGenerator.getPasswordBasedOnWords(wordsArray)

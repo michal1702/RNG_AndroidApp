@@ -1,5 +1,6 @@
 package com.project.randomnumbergenerator.activities
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,10 +10,12 @@ import android.widget.ListView
 import android.widget.Toast
 import com.project.randomnumbergenerator.*
 import com.project.randomnumbergenerator.adapters.ItemsListAdapter
+import com.project.randomnumbergenerator.interfaces.ToastManager
 import com.project.randomnumbergenerator.listitems.ListItem
 
-class MainActivity : AppCompatActivity(),AdapterView.OnItemClickListener {
+class MainActivity : AppCompatActivity(),AdapterView.OnItemClickListener, ToastManager {
 
+    override val activityContext: Context = this
     private lateinit var listView: ListView
     private lateinit var itemsListAdapter: ItemsListAdapter
     private var arrayList:ArrayList<ListItem>? = null
@@ -99,7 +102,7 @@ class MainActivity : AppCompatActivity(),AdapterView.OnItemClickListener {
                 val passwordIntent  = Intent(this, RandomPasswordActivity::class.java)
                 startActivity(passwordIntent)
             }
-            else -> Toast.makeText(this, "Not implemented yet", Toast.LENGTH_SHORT).show()
+            else -> shortToast("Not implemented yet")
         }
     }
 }

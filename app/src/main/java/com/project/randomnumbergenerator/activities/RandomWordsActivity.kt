@@ -2,6 +2,7 @@ package com.project.randomnumbergenerator.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
@@ -13,13 +14,15 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.project.randomnumbergenerator.R
 import com.project.randomnumbergenerator.adapters.WordsListAdapter
+import com.project.randomnumbergenerator.interfaces.ToastManager
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 
-class RandomWordsActivity : AppCompatActivity(){
+class RandomWordsActivity : AppCompatActivity(), ToastManager{
 
+    override val activityContext: Context = this
     private lateinit var addButton: Button
     private lateinit var wordBox: EditText
     private lateinit var warningBox: TextView
@@ -125,7 +128,7 @@ class RandomWordsActivity : AppCompatActivity(){
         if(speechIntent.resolveActivity(packageManager) != null)
             startActivityForResult(speechIntent, 10)
         else
-            Toast.makeText(this, "Your device does not support speech recognition!", Toast.LENGTH_LONG).show()
+            longToast("Your device does not support speech recognition!")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -4,13 +4,13 @@ import android.content.Context
 import android.widget.Toast
 
 interface ToastManager {
-    val context: Context
+    val activityContext: Context
 
     fun shortToast(message: String){
-        Toast.makeText(this.context, message,Toast.LENGTH_SHORT).show()
+        Toast.makeText(this.activityContext, message,Toast.LENGTH_SHORT).show()
     }
 
     fun longToast(message: String){
-        Toast.makeText(this.context, message,Toast.LENGTH_LONG).show()
+        Toast.makeText(this.activityContext, message,Toast.LENGTH_LONG).show()
     }
 }

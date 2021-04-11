@@ -2,6 +2,7 @@ package com.project.randomnumbergenerator.activities
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
@@ -13,13 +14,15 @@ import com.project.randomnumbergenerator.R
 import com.project.randomnumbergenerator.model.SoundManager
 import com.project.randomnumbergenerator.listitems.SoundsListItem
 import com.project.randomnumbergenerator.adapters.SoundsListAdapter
+import com.project.randomnumbergenerator.interfaces.ToastManager
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
 
 private const val RECORD_AUDIO_PERMISSION = 200
 
-class RandomSoundsActivity : AppCompatActivity() {
+class RandomSoundsActivity : AppCompatActivity(), ToastManager {
+    override val activityContext: Context = this
     private lateinit var listView: ListView
     private lateinit var drawButton: Button
     private lateinit var recordButton: ImageView
@@ -62,7 +65,7 @@ class RandomSoundsActivity : AppCompatActivity() {
                     isRecording = true
                 }
             }
-            else Toast.makeText(this, "Enter sound name", Toast.LENGTH_LONG).show()
+            else longToast("Enter sound name")
         }
         drawButton.setOnClickListener{
             if(soundsArray.isNotEmpty()){
@@ -70,7 +73,7 @@ class RandomSoundsActivity : AppCompatActivity() {
                 Thread {
                     runSoundPlayingThread(position)
                 }.start()
-               Toast.makeText(this, "Now playing: " + soundsArray[position].nameOfSound, Toast.LENGTH_SHORT).show()
+               shortToast("Now playing: " + soundsArray[position].nameOfSound)
             }
         }
 
