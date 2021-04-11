@@ -8,11 +8,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.project.randomnumbergenerator.R
 import com.project.randomnumbergenerator.interfaces.ToastManager
-import com.project.randomnumbergenerator.model.PasswordGenerator
+import com.project.randomnumbergenerator.model.UserFriendlyPasswordGenerator
 
 
 /**
@@ -56,7 +55,7 @@ class UserFriendlyPasswordPage(context: Context) : Fragment(), ToastManager{
             if(words<2){
                 longToast("Enter at least 2 words")
             }else {
-                val passwordGenerator = PasswordGenerator()
+                val passwordGenerator = UserFriendlyPasswordGenerator()
                 generatedPassword.text = passwordGenerator.getPasswordBasedOnWords(wordsArray)
             }
         }

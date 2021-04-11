@@ -4,7 +4,7 @@ import java.util.*
 import kotlin.random.Random
 
 @ExperimentalStdlibApi
-class PasswordGenerator {
+class UserFriendlyPasswordGenerator {
     private var password: String = ""
     private var separators: List<String> = listOf(".","-","_","|")
     private var specialCharacters: List<String> = listOf("@","#","$","%","&","*")
@@ -27,14 +27,6 @@ class PasswordGenerator {
     }
 
     /**
-     * Returns password
-     */
-    fun getPasswordBasedOnWords(stringArray: Array<String>): String{
-        generatePasswordBasedOnWords(stringArray)
-        return password
-    }
-
-    /**
      * Replaces certain letters in a word
      */
     private fun replaceLetters(){
@@ -42,5 +34,13 @@ class PasswordGenerator {
         password = password.replace("a","@")
         password = password.replace("e","3")
         password = password.replace("E","3")
+    }
+
+    /**
+     * Returns password
+     */
+    fun getPasswordBasedOnWords(stringArray: Array<String>): String{
+        generatePasswordBasedOnWords(stringArray)
+        return password
     }
 }
