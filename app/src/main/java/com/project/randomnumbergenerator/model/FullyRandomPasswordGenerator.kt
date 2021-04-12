@@ -1,4 +1,12 @@
 package com.project.randomnumbergenerator.model
 
-class FullyRandomPasswordGenerator {
+import kotlin.random.Random
+
+class FullyRandomPasswordGenerator(private val charactersCount: Int): PasswordGenerator() {
+
+    override fun generatePassword() {
+        for(i in 0..charactersCount){
+            password+= Random.nextInt(33,126).toChar()
+        }
+    }
 }

@@ -55,8 +55,8 @@ class UserFriendlyPasswordPage(context: Context) : Fragment(), ToastManager{
             if(words<2){
                 longToast("Enter at least 2 words")
             }else {
-                val passwordGenerator = UserFriendlyPasswordGenerator()
-                generatedPassword.text = passwordGenerator.getPasswordBasedOnWords(wordsArray)
+                val passwordGenerator = UserFriendlyPasswordGenerator(wordsArray)
+                generatedPassword.text = passwordGenerator.getGeneratedPassword()
             }
         }
     }
