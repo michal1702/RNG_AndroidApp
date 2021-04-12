@@ -7,18 +7,17 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
-import android.widget.Toast
 import com.project.randomnumbergenerator.*
-import com.project.randomnumbergenerator.adapters.ItemsListAdapter
+import com.project.randomnumbergenerator.adapters.MainMenuItemsListAdapter
 import com.project.randomnumbergenerator.interfaces.ToastManager
-import com.project.randomnumbergenerator.listitems.ListItem
+import com.project.randomnumbergenerator.listitems.MainMenuListItem
 
 class MainActivity : AppCompatActivity(),AdapterView.OnItemClickListener, ToastManager {
 
     override val activityContext: Context = this
     private lateinit var listView: ListView
-    private lateinit var itemsListAdapter: ItemsListAdapter
-    private var arrayList:ArrayList<ListItem>? = null
+    private lateinit var mainMenuItemsListAdapter: MainMenuItemsListAdapter
+    private var arrayMainMenuList:ArrayList<MainMenuListItem>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,61 +26,61 @@ class MainActivity : AppCompatActivity(),AdapterView.OnItemClickListener, ToastM
         actionBar!!.title = "Random Numbers Generator"
 
         listView = findViewById(R.id.listViewGenerators)
-        arrayList = ArrayList()
-        arrayList = setDataToArrayList()
-        itemsListAdapter = ItemsListAdapter(
+        arrayMainMenuList = ArrayList()
+        arrayMainMenuList = setDataToArrayList()
+        mainMenuItemsListAdapter = MainMenuItemsListAdapter(
                 applicationContext,
-                arrayList!!
+                arrayMainMenuList!!
         )
-        listView.adapter = itemsListAdapter
+        listView.adapter = mainMenuItemsListAdapter
         listView.onItemClickListener = this
     }
 
-    private fun setDataToArrayList(): ArrayList<ListItem>{
-        val arrayList:ArrayList<ListItem> = ArrayList()
-        arrayList.add(
-                ListItem(
+    private fun setDataToArrayList(): ArrayList<MainMenuListItem>{
+        val arrayMainMenuList:ArrayList<MainMenuListItem> = ArrayList()
+        arrayMainMenuList.add(
+                MainMenuListItem(
                         R.drawable.ic_numbers,
                         "Random numbers"
                 )
         )
-        arrayList.add(
-                ListItem(
+        arrayMainMenuList.add(
+                MainMenuListItem(
                         R.drawable.ic_word,
                         "Random words"
                 )
         )
-        arrayList.add(
-                ListItem(
+        arrayMainMenuList.add(
+                MainMenuListItem(
                         R.drawable.ic_speaker,
                         "Random sounds"
                 )
         )
-        arrayList.add(
-                ListItem(
+        arrayMainMenuList.add(
+                MainMenuListItem(
                         R.drawable.ic_password,
                         "Random password"
                 )
         )
-        arrayList.add(
-                ListItem(
+        arrayMainMenuList.add(
+                MainMenuListItem(
                         R.drawable.temp,
                         "Lotto"
                 )
         )
-        arrayList.add(
-                ListItem(
+        arrayMainMenuList.add(
+                MainMenuListItem(
                         R.drawable.temp,
                         "Coin toss"
                 )
         )
-        arrayList.add(
-                ListItem(
+        arrayMainMenuList.add(
+                MainMenuListItem(
                         R.drawable.temp,
                         "Dices"
                 )
         )
-        return arrayList
+        return arrayMainMenuList
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

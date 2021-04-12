@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import com.project.randomnumbergenerator.listitems.ListItem
+import com.project.randomnumbergenerator.listitems.MainMenuListItem
 import com.project.randomnumbergenerator.R
 
-class ItemsListAdapter(private var context: Context, var arrayListItem: ArrayList<ListItem>) : BaseAdapter() {
+class MainMenuItemsListAdapter(private var context: Context, var arrayMainMenuListItem: ArrayList<MainMenuListItem>) : BaseAdapter() {
 
     override fun getItem(position: Int): Any {
-        return arrayListItem[position]
+        return arrayMainMenuListItem[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -21,19 +21,19 @@ class ItemsListAdapter(private var context: Context, var arrayListItem: ArrayLis
     }
 
     override fun getCount(): Int {
-        return arrayListItem.size
+        return arrayMainMenuListItem.size
     }
 
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view:View = View.inflate(context, R.layout.list_view_item,null)
+        val view:View = View.inflate(context, R.layout.main_menu_list_view_item,null)
 
         val itemIcon:ImageView = view.findViewById(R.id.item_icon)
         val itemTitle:TextView = view.findViewById(R.id.item_title)
 
-        val listItem: ListItem = arrayListItem[position]
-        itemIcon.setImageResource(listItem.icons!!)
-        itemTitle.text = listItem.title
+        val mainMenuListItem: MainMenuListItem = arrayMainMenuListItem[position]
+        itemIcon.setImageResource(mainMenuListItem.icons!!)
+        itemTitle.text = mainMenuListItem.title
 
         return view
     }
