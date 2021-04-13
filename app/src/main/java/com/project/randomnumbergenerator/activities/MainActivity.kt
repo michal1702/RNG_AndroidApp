@@ -64,15 +64,15 @@ class MainActivity : AppCompatActivity(),AdapterView.OnItemClickListener, ToastM
         )
         arrayMainMenuList.add(
                 MainMenuListItem(
-                        R.drawable.temp,
-                        "Lotto"
+                        R.drawable.ic_coin,
+                        "Coin toss"
                 )
         )
         arrayMainMenuList.add(
-                MainMenuListItem(
-                        R.drawable.temp,
-                        "Coin toss"
-                )
+            MainMenuListItem(
+                R.drawable.temp,
+                "Lotto"
+            )
         )
         arrayMainMenuList.add(
                 MainMenuListItem(
@@ -98,8 +98,12 @@ class MainActivity : AppCompatActivity(),AdapterView.OnItemClickListener, ToastM
                 startActivity(soundsIntent)
             }
             3 ->{
-                val passwordIntent  = Intent(this, RandomPasswordActivity::class.java)
+                val passwordIntent = Intent(this, RandomPasswordActivity::class.java)
                 startActivity(passwordIntent)
+            }
+            4 ->{
+                val coinTossIntent = Intent(this, CoinTossActivity::class.java)
+                startActivity(coinTossIntent)
             }
             else -> shortToast("Not implemented yet")
         }
