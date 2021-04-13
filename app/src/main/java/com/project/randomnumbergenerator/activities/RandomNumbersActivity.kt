@@ -2,6 +2,7 @@ package com.project.randomnumbergenerator.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,17 +12,18 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.project.randomnumbergenerator.R
+import com.project.randomnumbergenerator.interfaces.ToastManager
 import com.project.randomnumbergenerator.model.RandomNumbersGenerator
 import java.text.DecimalFormat
 
 
-class RandomNumbersActivity : AppCompatActivity(){
+class RandomNumbersActivity : AppCompatActivity(), ToastManager{
 
+    override val activityContext: Context = this
     private lateinit var lowerLimitBox: EditText
     private lateinit var upperLimitBox: EditText
     private lateinit var drawButton: Button
     private lateinit var resultBox: TextView
-    private lateinit var warningBox: TextView
     private lateinit var decimalSwitch: com.google.android.material.switchmaterial.SwitchMaterial
     private lateinit var repeatSwitch: com.google.android.material.switchmaterial.SwitchMaterial
     private lateinit var ascendingSwitch: com.google.android.material.switchmaterial.SwitchMaterial
@@ -38,26 +40,6 @@ class RandomNumbersActivity : AppCompatActivity(){
         modifyActionBar()
 
         drawButton.setOnClickListener(drawButtonClickListener)
-        //region textChangedListeners
-        lowerLimitBox.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!s.isNullOrBlank()) {
-                    warningBox.text = ""
-                }
-            }
-        })
-        upperLimitBox.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!s.isNullOrBlank()) {
-                    warningBox.text = ""
-                }
-            }
-        })
-        //endregion
         //region switchesListeners
         ascendingSwitch.setOnClickListener{
             descendingSwitch.isChecked = false
@@ -100,7 +82,6 @@ class RandomNumbersActivity : AppCompatActivity(){
         drawButton = findViewById(R.id.generateButton)
         resultBox = findViewById(R.id.resultTextView)
         resultBox.movementMethod = ScrollingMovementMethod()
-        warningBox = findViewById(R.id.warningTextView)
         decimalSwitch = findViewById(R.id.decimalSwitch)
         spinner = findViewById(R.id.numbersCountSpinner)
         val spinnerAdapter = ArrayAdapter.createFromResource(this,
@@ -138,11 +119,11 @@ class RandomNumbersActivity : AppCompatActivity(){
                         }
                     }
                     false -> {
-                        if(repeatSwitch.isChecked) {
+                        if (repeatSwitch.isChecked) {
                             val list = rng.drawIntsWithRepetition()
                             for (i in 0 until numbersCount)
                                 resultBox.append(list[i].toString() + "  ")
-                        }else{
+                        } else {
                             val list = rng.drawIntsWithoutRepetition()
                             val end = rng.drawWithoutRepetitionNumberCount()
                             for (i in 0 until end)
@@ -150,7 +131,7 @@ class RandomNumbersActivity : AppCompatActivity(){
                         }
                     }
                 }
-            }else warningBox.text = "Lower limit cannot be greater than upper limit!"
-        }else warningBox.text = "Correct all of the input fields!"
+            } else longToast("Lower limit cannot be greater than upper limit!")
+        }else shortToast("Correct all of the input fields!")
     }
 }

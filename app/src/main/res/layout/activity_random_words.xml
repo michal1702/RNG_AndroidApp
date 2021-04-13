@@ -13,7 +13,7 @@
         android:layout_width="196dp"
         android:layout_height="43dp"
         android:layout_marginStart="56dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="40dp"
         android:backgroundTint="@color/light_green"
         android:ems="10"
         android:fontFamily="@font/round_regular"
@@ -23,7 +23,7 @@
         android:textColorHint="@color/text_white"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wordWarningTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/wordsListView" />
 
     <Button
         android:id="@+id/addButton"
@@ -74,18 +74,6 @@
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/clearButton" />
-
-    <TextView
-        android:id="@+id/wordWarningTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:textColor="@color/light_green"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wordsListView"
-        tools:ignore="UnknownId" />
 
     <Button
         android:id="@+id/clearButton"

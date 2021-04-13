@@ -25,7 +25,6 @@ class RandomWordsActivity : AppCompatActivity(), ToastManager{
     override val activityContext: Context = this
     private lateinit var addButton: Button
     private lateinit var wordBox: EditText
-    private lateinit var warningBox: TextView
     private lateinit var clearButton: Button
     private lateinit var generateButton: Button
     private lateinit var resultTextBox: TextView
@@ -51,12 +50,6 @@ class RandomWordsActivity : AppCompatActivity(), ToastManager{
         micorphone.setOnClickListener{
             getSpeechInput()
         }
-
-        wordBox.addTextChangedListener(object :TextWatcher{
-            override fun afterTextChanged(s: Editable?) {}
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { if(!s.isNullOrBlank()) warningBox.text = "" }
-        })
     }
 
     /**
@@ -74,7 +67,6 @@ class RandomWordsActivity : AppCompatActivity(), ToastManager{
     private fun setControls(){
         addButton = findViewById(R.id.addButton)
         wordBox = findViewById(R.id.wordTextEdit)
-        warningBox = findViewById(R.id.wordWarningTextView)
         clearButton = findViewById(R.id.clearButton)
         generateButton = findViewById(R.id.generateWordButton)
         resultTextBox = findViewById(R.id.resultTextView)
@@ -143,7 +135,7 @@ class RandomWordsActivity : AppCompatActivity(), ToastManager{
     @SuppressLint("SetTextI18n")
     private fun addButtonClicked(){
         if(wordBox.text.isEmpty()) {
-            warningBox.text = "Enter a word"
+            shortToast("Enter a word")
         }
         else {
             wordsList.add(wordBox.text.toString() + "\n")

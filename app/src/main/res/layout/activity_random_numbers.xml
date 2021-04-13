@@ -130,18 +130,6 @@
         app:layout_constraintStart_toStartOf="@+id/resultTextView" />
 
     <TextView
-        android:id="@+id/warningTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:textColor="@color/light_green"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/generateButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
         android:id="@+id/drawOptionsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -170,19 +158,19 @@
         app:layout_constraintStart_toStartOf="@+id/ascendingSortSwitch" />
 
     <Spinner
-        style="@style/Widget.AppCompat.EditText"
-        android:backgroundTint="@color/light_green"
         android:id="@+id/numbersCountSpinner"
+        style="@style/Widget.AppCompat.EditText"
         android:layout_width="48dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/light_green"
         android:fontFamily="@font/round_regular"
         android:spinnerMode="dropdown"
         android:textColor="@color/text_white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/warningTextView"
+        app:layout_constraintBottom_toTopOf="@+id/generateButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.752"
+        app:layout_constraintHorizontal_bias="0.746"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
