@@ -12,6 +12,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.project.randomnumbergenerator.R
+import com.project.randomnumbergenerator.databinding.ActivityCoinTossBinding
+import com.project.randomnumbergenerator.databinding.ActivityMainBinding
 import com.project.randomnumbergenerator.interfaces.ToastManager
 import com.project.randomnumbergenerator.model.CoinTosser
 import kotlin.math.sqrt
@@ -19,13 +21,9 @@ import kotlin.math.sqrt
 class CoinTossActivity : AppCompatActivity(), ToastManager, SensorEventListener {
 
     override val activityContext: Context = this
-    private lateinit var coinImage: ImageView
-    private lateinit var headsCount: TextView
-    private lateinit var tailsCount: TextView
-    private lateinit var clearButton: Button
+    lateinit var binding: ActivityCoinTossBinding
     private lateinit var sensorManager: SensorManager
     private lateinit var tosser: CoinTosser
-
     private var accelerometer: Sensor? = null
 
     private var accelerometerLastValue = 0.0f
@@ -37,13 +35,13 @@ class CoinTossActivity : AppCompatActivity(), ToastManager, SensorEventListener 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_coin_toss)
-        setControls()
+        binding = ActivityCoinTossBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         initiateSensor()
         modifyActionBar()
-        tosser = CoinTosser(this.coinImage,this)
-        this.coinImage.setOnClickListener(coinTossClickListener)
-        this.clearButton.setOnClickListener(clearButtonClickListener)
+        tosser = CoinTosser(binding.coinImage,this)
+        binding.coinImage.setOnClickListener(coinTossClickListener)
+        binding.clearCoinTossCount.setOnClickListener(clearButtonClickListener)
     }
 
     /**
@@ -51,8 +49,8 @@ class CoinTossActivity : AppCompatActivity(), ToastManager, SensorEventListener 
      */
     private fun tossCoinClicked(){
         when(tosser.drawSide()){
-            0 -> headsCount.text = (headsCount.text.toString().toInt() + 1).toString()
-            1 -> tailsCount.text = (tailsCount.text.toString().toInt() + 1).toString()
+            0 -> binding.headsCountTextView.text = (binding.headsCountTextView.text.toString().toInt() + 1).toString()
+            1 -> binding.tailsCountTextView.text = (binding.tailsCountTextView.text.toString().toInt() + 1).toString()
         }
     }
 
@@ -60,18 +58,8 @@ class CoinTossActivity : AppCompatActivity(), ToastManager, SensorEventListener 
      * Method clears head/tails count
      */
     private fun clearClicked(){
-        headsCount.text = "0"
-        tailsCount.text = "0"
-    }
-
-    /**
-     * Sets up all controls (buttons, switches, etc.)
-     */
-    private fun setControls(){
-        this.coinImage = findViewById(R.id.coinImage)
-        this.headsCount = findViewById(R.id.headsCountTextView)
-        this.tailsCount = findViewById(R.id.tailsCountTextView)
-        this.clearButton = findViewById(R.id.clearCoinTossCount)
+        binding.headsCountTextView.text = "0"
+        binding.tailsCountTextView.text = "0"
     }
 
     /**

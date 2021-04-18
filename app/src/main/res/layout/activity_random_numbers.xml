@@ -45,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="@+id/resultTextView" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/noRepeatSwitch"
+        android:id="@+id/repeatSwitch"
         android:layout_width="170dp"
         android:layout_height="35dp"
         android:fontFamily="@font/round_regular"
@@ -110,7 +110,7 @@
         android:id="@+id/generateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/round_regular"
         android:text="@string/generate"
         android:textSize="25sp"
@@ -138,10 +138,10 @@
         android:text="Draw options:"
         android:textColor="@color/text_white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/noRepeatSwitch"
-        app:layout_constraintEnd_toEndOf="@+id/noRepeatSwitch"
+        app:layout_constraintBottom_toTopOf="@+id/repeatSwitch"
+        app:layout_constraintEnd_toEndOf="@+id/repeatSwitch"
         app:layout_constraintHorizontal_bias="0.555"
-        app:layout_constraintStart_toStartOf="@+id/noRepeatSwitch" />
+        app:layout_constraintStart_toStartOf="@+id/repeatSwitch" />
 
     <TextView
         android:id="@+id/sortOptionsTextView"

@@ -14,6 +14,7 @@ import com.project.randomnumbergenerator.R
 import com.project.randomnumbergenerator.model.SoundManager
 import com.project.randomnumbergenerator.listitems.SoundsListItem
 import com.project.randomnumbergenerator.adapters.SoundsListAdapter
+import com.project.randomnumbergenerator.databinding.ActivityRandomSoundsBinding
 import com.project.randomnumbergenerator.interfaces.ToastManager
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
@@ -23,16 +24,10 @@ private const val RECORD_AUDIO_PERMISSION = 200
 
 class RandomSoundsActivity : AppCompatActivity(), ToastManager {
     override val activityContext: Context = this
-    private lateinit var listView: ListView
-    private lateinit var drawButton: Button
-    private lateinit var recordButton: ImageView
-    private lateinit var soundNameTextEdit: EditText
-    private lateinit var clearSounds: Button
-    private lateinit var soundsListAdapter: SoundsListAdapter
-    private lateinit var soundProgressBar: ProgressBar
-    private lateinit var soundTime: TextView
-    private lateinit var skipSound: ImageView
+
+    private lateinit var binding: ActivityRandomSoundsBinding
     private lateinit var soundsArray: ArrayList<SoundsListItem>
+    private lateinit var soundsListAdapter: SoundsListAdapter
     private var permissionToRecordAccepted = false
     private var isRecording = false
     private var skip = false
@@ -45,32 +40,25 @@ class RandomSoundsActivity : AppCompatActivity(), ToastManager {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_random_sounds)
+        binding = ActivityRandomSoundsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         ActivityCompat.requestPermissions(this, permissions, RECORD_AUDIO_PERMISSION)
         manager = SoundManager(this)
         soundsArray = ArrayList()
         setControls()
         modifyActionBar()
 
-        recordButton.setOnClickListener(recordButtonClickListener)
-        drawButton.setOnClickListener(drawButtonClickListener)
-        clearSounds.setOnClickListener(clearButtonClickListener)
-        skipSound.setOnClickListener{ skip = true }
+        binding.recordSoundImageView.setOnClickListener(recordButtonClickListener)
+        binding.generateSoundButton.setOnClickListener(drawButtonClickListener)
+        binding.clearSoundsButton.setOnClickListener(clearButtonClickListener)
+        binding.skipSoundImageView.setOnClickListener{ skip = true }
     }
 
     /**
      * Sets up controls like buttons, text fields, etc.
      */
     private fun setControls(){
-        listView = findViewById(R.id.soundsListView)
-        drawButton = findViewById(R.id.generateSoundButton)
-        recordButton = findViewById(R.id.recordSoundImageView)
-        soundNameTextEdit = findViewById(R.id.soundNameEditText)
-        clearSounds = findViewById(R.id.clearSoundsButton)
-        soundProgressBar = findViewById(R.id.soundProgressBar)
-        soundTime = findViewById(R.id.soundTimeTextView)
-        skipSound = findViewById(R.id.skipSoundImageView)
-        skipSound.isEnabled = false
+        binding.skipSoundImageView.isEnabled = false
     }
 
     override fun onRequestPermissionsResult(requestCode: Int,
@@ -110,21 +98,21 @@ class RandomSoundsActivity : AppCompatActivity(), ToastManager {
         var currentPosition: Int
         manager?.playSound("sound-$soundName")
         runOnUiThread {
-            drawButton.isEnabled = false
-            clearSounds.isEnabled = false
-            recordButton.isEnabled = false
-            skipSound.isEnabled = true
+            binding.generateSoundButton.isEnabled = false
+            binding.clearSoundsButton.isEnabled = false
+            binding.recordSoundImageView.isEnabled = false
+            binding.skipSoundImageView.isEnabled = true
         }
         val duration = manager?.getDuration()!!
-        soundProgressBar.max = duration
+        binding.soundProgressBar.max = duration
         while(manager?.getCurrentPosition()!! < duration) {
             currentPosition = manager?.getCurrentPosition()!!
-            soundProgressBar.progress = currentPosition
+            binding.soundProgressBar.progress = currentPosition
             runOnUiThread {
                 val stringFormat = String.format("%02d:%02d",
                     TimeUnit.MILLISECONDS.toMinutes(currentPosition.toLong()),
                     TimeUnit.MILLISECONDS.toSeconds(currentPosition.toLong()))
-                soundTime.text = stringFormat
+                binding.soundTimeTextView.text = stringFormat
             }
             if(skip) {
                 manager?.skipSound()
@@ -133,33 +121,33 @@ class RandomSoundsActivity : AppCompatActivity(), ToastManager {
             }
         }
         runOnUiThread {
-            soundTime.text = "00:00"
-            drawButton.isEnabled = true
-            clearSounds.isEnabled = true
-            recordButton.isEnabled = true
-            skipSound.isEnabled = false
+            binding.soundTimeTextView.text = "00:00"
+            binding.generateSoundButton.isEnabled = true
+            binding.clearSoundsButton.isEnabled = true
+            binding.recordSoundImageView.isEnabled = true
+            binding.skipSoundImageView.isEnabled = false
         }
-        soundProgressBar.progress = 0
+        binding.soundProgressBar.progress = 0
     }
 
     /**
      * Record sound on clicked
      */
     private fun recordButtonClicked(){
-        if(!soundNameTextEdit.text.isNullOrEmpty()) {
+        if(!binding.soundNameEditText.text.isNullOrEmpty()) {
             val itemNumber: Int = soundsArray.size
-            val soundName: String = soundNameTextEdit.text.toString()
+            val soundName: String = binding.soundNameEditText.text.toString()
             if (isRecording) {
-                recordButton.setImageResource(R.drawable.ic_microphone)
+                binding.recordSoundImageView.setImageResource(R.drawable.ic_microphone)
                 manager?.stopRecording()
                 soundsListAdapter = SoundsListAdapter(applicationContext, soundsArray)
-                listView.adapter = soundsListAdapter
+                binding.soundsListView.adapter = soundsListAdapter
                 soundsArray.add(SoundsListItem(soundName, "sound-$itemNumber"))
                 isRecording = false
-                soundNameTextEdit.setText("")
+                binding.soundNameEditText.setText("")
             } else {
                 manager?.startRecording(this, "sound-$itemNumber")
-                recordButton.setImageResource(R.drawable.ic_pause)
+                binding.recordSoundImageView.setImageResource(R.drawable.ic_pause)
                 isRecording = true
             }
         }

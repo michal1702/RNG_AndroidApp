@@ -4,14 +4,13 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.text.method.ScrollingMovementMethod
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.project.randomnumbergenerator.R
+import com.project.randomnumbergenerator.databinding.ActivityRandomNumbersBinding
 import com.project.randomnumbergenerator.interfaces.ToastManager
 import com.project.randomnumbergenerator.model.RandomNumbersGenerator
 import java.text.DecimalFormat
@@ -20,38 +19,31 @@ import java.text.DecimalFormat
 class RandomNumbersActivity : AppCompatActivity(), ToastManager{
 
     override val activityContext: Context = this
-    private lateinit var lowerLimitBox: EditText
-    private lateinit var upperLimitBox: EditText
-    private lateinit var drawButton: Button
-    private lateinit var resultBox: TextView
-    private lateinit var decimalSwitch: com.google.android.material.switchmaterial.SwitchMaterial
-    private lateinit var repeatSwitch: com.google.android.material.switchmaterial.SwitchMaterial
-    private lateinit var ascendingSwitch: com.google.android.material.switchmaterial.SwitchMaterial
-    private lateinit var descendingSwitch: com.google.android.material.switchmaterial.SwitchMaterial
-    private lateinit var spinner: Spinner
+    private lateinit var binding: ActivityRandomNumbersBinding
 
     private val drawButtonClickListener = View.OnClickListener { drawButtonClicked() }
 
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_random_numbers)
+        binding = ActivityRandomNumbersBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setControls()
         modifyActionBar()
 
-        drawButton.setOnClickListener(drawButtonClickListener)
+        binding.generateButton.setOnClickListener(drawButtonClickListener)
         //region switchesListeners
-        ascendingSwitch.setOnClickListener{
-            descendingSwitch.isChecked = false
+        binding.ascendingSortSwitch.setOnClickListener{
+            binding.descendingSortSwitch.isChecked = false
         }
-        descendingSwitch.setOnClickListener{
-            ascendingSwitch.isChecked = false
+        binding.descendingSortSwitch.setOnClickListener{
+            binding.ascendingSortSwitch.isChecked = false
         }
-        repeatSwitch.setOnClickListener{
-            decimalSwitch.isChecked = false
+        binding.repeatSwitch.setOnClickListener{
+            binding.decimalSwitch.isChecked = false
         }
-        decimalSwitch.setOnClickListener{
-            repeatSwitch.isChecked = false
+        binding.decimalSwitch.setOnClickListener{
+            binding.repeatSwitch.isChecked = false
         }
         //endregion
     }
@@ -77,57 +69,48 @@ class RandomNumbersActivity : AppCompatActivity(), ToastManager{
      * Sets up all controls (buttons, switches, etc.)
      */
     private fun setControls(){
-        lowerLimitBox = findViewById(R.id.lowerLimitTextEdit)
-        upperLimitBox = findViewById(R.id.upperLimitTextEdit)
-        drawButton = findViewById(R.id.generateButton)
-        resultBox = findViewById(R.id.resultTextView)
-        resultBox.movementMethod = ScrollingMovementMethod()
-        decimalSwitch = findViewById(R.id.decimalSwitch)
-        spinner = findViewById(R.id.numbersCountSpinner)
+        binding.resultTextView.movementMethod = ScrollingMovementMethod()
         val spinnerAdapter = ArrayAdapter.createFromResource(this,
             R.array.count,
             R.layout.spinner_layout
         )
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout)
-        spinner.adapter = spinnerAdapter
-        ascendingSwitch = findViewById(R.id.ascendingSortSwitch)
-        descendingSwitch = findViewById(R.id.descendingSortSwitch)
-        repeatSwitch = findViewById(R.id.noRepeatSwitch)
+        binding.numbersCountSpinner.adapter = spinnerAdapter
     }
 
     /**
      * Action performed on draw button clicked
      */
     private fun drawButtonClicked(){
-        resultBox.text=""
-        val numbersCount = spinner.selectedItem.toString().toInt()
-        if(!lowerLimitBox.text.isNullOrEmpty() && !upperLimitBox.text.isNullOrEmpty()) {
+        binding.resultTextView.text=""
+        val numbersCount = binding.numbersCountSpinner.selectedItem.toString().toInt()
+        if(!binding.lowerLimitTextEdit.text.isNullOrEmpty() && !binding.upperLimitTextEdit.text.isNullOrEmpty()) {
             val rng =
                     RandomNumbersGenerator(
                             numbersCount,
-                            lowerLimitBox,
-                            upperLimitBox
+                        binding.lowerLimitTextEdit,
+                        binding.upperLimitTextEdit
                     )
-            rng.setSortOptions(ascendingSwitch.isChecked, descendingSwitch.isChecked)
+            rng.setSortOptions(binding.ascendingSortSwitch.isChecked, binding.descendingSortSwitch.isChecked)
             if (rng.validate()) {
-                when (decimalSwitch.isChecked) {
+                when (binding.decimalSwitch.isChecked) {
                     true -> {
                         val list = rng.drawDoubles()
                         for (i in 0 until numbersCount) {
                             val decimalFormat = DecimalFormat("##.###")
-                            resultBox.append(decimalFormat.format(list[i]).toString() + "   ")
+                            binding.resultTextView.append(decimalFormat.format(list[i]).toString() + "   ")
                         }
                     }
                     false -> {
-                        if (repeatSwitch.isChecked) {
+                        if (binding.repeatSwitch.isChecked) {
                             val list = rng.drawIntsWithRepetition()
                             for (i in 0 until numbersCount)
-                                resultBox.append(list[i].toString() + "  ")
+                                binding.resultTextView.append(list[i].toString() + "  ")
                         } else {
                             val list = rng.drawIntsWithoutRepetition()
                             val end = rng.drawWithoutRepetitionNumberCount()
                             for (i in 0 until end)
-                                resultBox.append(list[i].toString() + "  ")
+                                binding.resultTextView.append(list[i].toString() + "  ")
                         }
                     }
                 }

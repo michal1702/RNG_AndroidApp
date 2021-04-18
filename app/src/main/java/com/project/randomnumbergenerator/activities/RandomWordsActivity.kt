@@ -14,6 +14,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.project.randomnumbergenerator.R
 import com.project.randomnumbergenerator.adapters.WordsListAdapter
+import com.project.randomnumbergenerator.databinding.ActivityRandomWordsBinding
 import com.project.randomnumbergenerator.interfaces.ToastManager
 import java.util.*
 import kotlin.collections.ArrayList
@@ -23,14 +24,8 @@ import kotlin.random.Random
 class RandomWordsActivity : AppCompatActivity(), ToastManager{
 
     override val activityContext: Context = this
-    private lateinit var addButton: Button
-    private lateinit var wordBox: EditText
-    private lateinit var clearButton: Button
-    private lateinit var generateButton: Button
-    private lateinit var resultTextBox: TextView
-    private lateinit var micorphone: ImageView
+    private lateinit var binding: ActivityRandomWordsBinding
     private lateinit var wordsAdapter: WordsListAdapter
-    private lateinit var wordsListView: ListView
     private lateinit var wordsList: ArrayList<String>
 
     private val generateButtonClickListener = View.OnClickListener { generateButtonClicked() }
@@ -39,15 +34,15 @@ class RandomWordsActivity : AppCompatActivity(), ToastManager{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_random_words)
-        setControls()
+        binding = ActivityRandomWordsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         modifyActionBar()
         wordsList = ArrayList()
 
-        addButton.setOnClickListener(addButtonClickListener)
-        clearButton.setOnClickListener(clearButtonClickListener)
-        generateButton.setOnClickListener(generateButtonClickListener)
-        micorphone.setOnClickListener{
+        binding.addButton.setOnClickListener(addButtonClickListener)
+        binding.clearButton.setOnClickListener(clearButtonClickListener)
+        binding.generateWordButton.setOnClickListener(generateButtonClickListener)
+        binding.microphoneImageView.setOnClickListener{
             getSpeechInput()
         }
     }
@@ -61,18 +56,6 @@ class RandomWordsActivity : AppCompatActivity(), ToastManager{
         inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 
-    /**
-     * Sets up controls like buttons, text fields, etc.
-     */
-    private fun setControls(){
-        addButton = findViewById(R.id.addButton)
-        wordBox = findViewById(R.id.wordTextEdit)
-        clearButton = findViewById(R.id.clearButton)
-        generateButton = findViewById(R.id.generateWordButton)
-        resultTextBox = findViewById(R.id.resultTextView)
-        micorphone = findViewById(R.id.microphoneImageView)
-        wordsListView = findViewById(R.id.wordsListView)
-    }
 
     /**
      * Sets up action bar
@@ -104,7 +87,7 @@ class RandomWordsActivity : AppCompatActivity(), ToastManager{
                 if(resultCode == Activity.RESULT_OK && data != null){
                     val text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     if(text != null)
-                        wordBox.setText(text[0])
+                        binding.wordTextEdit.setText(text[0])
                 }
             }
         }
@@ -116,7 +99,7 @@ class RandomWordsActivity : AppCompatActivity(), ToastManager{
     private fun generateButtonClicked(){
         if(wordsList.isNotEmpty()) {
             val position = Random.nextInt(0, wordsList.size)
-            resultTextBox.text = wordsList[position]
+            binding.resultTextView.text = wordsList[position]
         }
     }
 
@@ -126,7 +109,7 @@ class RandomWordsActivity : AppCompatActivity(), ToastManager{
     private fun clearButtonClicked(){
         wordsList.clear()
         wordsAdapter.notifyDataSetChanged()
-        resultTextBox.text=""
+        binding.resultTextView.text=""
     }
 
     /**
@@ -134,14 +117,14 @@ class RandomWordsActivity : AppCompatActivity(), ToastManager{
      */
     @SuppressLint("SetTextI18n")
     private fun addButtonClicked(){
-        if(wordBox.text.isEmpty()) {
+        if(binding.wordTextEdit.text.isEmpty()) {
             shortToast("Enter a word")
         }
         else {
-            wordsList.add(wordBox.text.toString() + "\n")
+            wordsList.add(binding.wordTextEdit.text.toString() + "\n")
             wordsAdapter = WordsListAdapter(applicationContext, wordsList)
-            wordsListView.adapter = wordsAdapter
-            wordBox.setText("")
+            binding.wordsListView.adapter = wordsAdapter
+            binding.wordTextEdit.setText("")
         }
     }
 }
