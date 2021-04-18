@@ -11,13 +11,15 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.project.randomnumbergenerator.R
 import com.project.randomnumbergenerator.databinding.ActivityRandomNumbersBinding
+import com.project.randomnumbergenerator.interfaces.KeyboardHide
 import com.project.randomnumbergenerator.interfaces.ToastManager
 import com.project.randomnumbergenerator.model.RandomNumbersGenerator
 import java.text.DecimalFormat
 
 
-class RandomNumbersActivity : AppCompatActivity(), ToastManager{
+class RandomNumbersActivity : AppCompatActivity(), ToastManager, KeyboardHide{
 
+    override val activity: Activity = this
     override val activityContext: Context = this
     private lateinit var binding: ActivityRandomNumbersBinding
 
@@ -32,6 +34,7 @@ class RandomNumbersActivity : AppCompatActivity(), ToastManager{
         modifyActionBar()
 
         binding.generateButton.setOnClickListener(drawButtonClickListener)
+        binding.randomNumbersConstraintLayout.setOnClickListener { hideKeyboard() }
         //region switchesListeners
         binding.ascendingSortSwitch.setOnClickListener{
             binding.descendingSortSwitch.isChecked = false
@@ -46,14 +49,6 @@ class RandomNumbersActivity : AppCompatActivity(), ToastManager{
             binding.repeatSwitch.isChecked = false
         }
         //endregion
-    }
-
-    /**
-     * @param view view of rng activity
-     */
-    fun hideKeyboard(view: View) {
-        val inputMethodManager: InputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 
     /**

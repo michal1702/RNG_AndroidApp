@@ -8,6 +8,7 @@ import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
 import com.project.randomnumbergenerator.R
+import com.project.randomnumbergenerator.interfaces.KeyboardHide
 import com.project.randomnumbergenerator.ui.main.SectionsPagerAdapter
 
 class RandomPasswordActivity : AppCompatActivity() {
@@ -30,14 +31,5 @@ class RandomPasswordActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar!!.title = "Random password"
         actionBar.setDisplayHomeAsUpEnabled(true)
-    }
-
-    /**
-     * Method hides keyboard on focus off
-     * @param view view of this activity
-     */
-    fun hideKeyboard(view: View) {
-        val inputMethodManager: InputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 }

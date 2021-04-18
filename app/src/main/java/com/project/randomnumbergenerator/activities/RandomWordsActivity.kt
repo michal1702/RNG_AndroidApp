@@ -6,23 +6,21 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.project.randomnumbergenerator.R
 import com.project.randomnumbergenerator.adapters.WordsListAdapter
 import com.project.randomnumbergenerator.databinding.ActivityRandomWordsBinding
+import com.project.randomnumbergenerator.interfaces.KeyboardHide
 import com.project.randomnumbergenerator.interfaces.ToastManager
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 
-class RandomWordsActivity : AppCompatActivity(), ToastManager{
+class RandomWordsActivity : AppCompatActivity(), ToastManager, KeyboardHide{
 
+    override val activity: Activity = this
     override val activityContext: Context = this
     private lateinit var binding: ActivityRandomWordsBinding
     private lateinit var wordsAdapter: WordsListAdapter
@@ -39,6 +37,9 @@ class RandomWordsActivity : AppCompatActivity(), ToastManager{
         modifyActionBar()
         wordsList = ArrayList()
 
+        binding.randomWordsConstraintLayout.setOnClickListener {
+            hideKeyboard()
+        }
         binding.addButton.setOnClickListener(addButtonClickListener)
         binding.clearButton.setOnClickListener(clearButtonClickListener)
         binding.generateWordButton.setOnClickListener(generateButtonClickListener)
@@ -46,16 +47,6 @@ class RandomWordsActivity : AppCompatActivity(), ToastManager{
             getSpeechInput()
         }
     }
-
-    /**
-     * Method hides keyboard on focus off
-     * @param view view of this activity
-     */
-    fun hideKeyboard(view: View) {
-        val inputMethodManager: InputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
-    }
-
 
     /**
      * Sets up action bar

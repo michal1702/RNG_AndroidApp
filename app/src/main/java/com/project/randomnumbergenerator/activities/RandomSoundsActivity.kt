@@ -15,6 +15,7 @@ import com.project.randomnumbergenerator.model.SoundManager
 import com.project.randomnumbergenerator.listitems.SoundsListItem
 import com.project.randomnumbergenerator.adapters.SoundsListAdapter
 import com.project.randomnumbergenerator.databinding.ActivityRandomSoundsBinding
+import com.project.randomnumbergenerator.interfaces.KeyboardHide
 import com.project.randomnumbergenerator.interfaces.ToastManager
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
@@ -22,7 +23,8 @@ import kotlin.random.Random
 
 private const val RECORD_AUDIO_PERMISSION = 200
 
-class RandomSoundsActivity : AppCompatActivity(), ToastManager {
+class RandomSoundsActivity : AppCompatActivity(), ToastManager, KeyboardHide {
+    override val activity: Activity = this
     override val activityContext: Context = this
 
     private lateinit var binding: ActivityRandomSoundsBinding
@@ -48,6 +50,7 @@ class RandomSoundsActivity : AppCompatActivity(), ToastManager {
         setControls()
         modifyActionBar()
 
+        binding.randomSoundsConstraintLayout.setOnClickListener { hideKeyboard() }
         binding.recordSoundImageView.setOnClickListener(recordButtonClickListener)
         binding.generateSoundButton.setOnClickListener(drawButtonClickListener)
         binding.clearSoundsButton.setOnClickListener(clearButtonClickListener)
@@ -70,15 +73,6 @@ class RandomSoundsActivity : AppCompatActivity(), ToastManager {
         }
         else false
         if(!permissionToRecordAccepted) finish()
-    }
-
-    /**
-     * Method hides keyboard on focus off
-     * @param view view of this activity
-     */
-    fun hideKeyboard(view: View) {
-        val inputMethodManager: InputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 
     /**
