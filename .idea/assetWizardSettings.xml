@@ -37,7 +37,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\venri\Downloads\money.png" />
+                                                <entry key="imagePath" value="C:\Users\venri\Downloads\bingo.png" />
                                                 <entry key="opacityPercent" value="80" />
                                               </map>
                                             </option>
@@ -71,8 +71,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\venri\Downloads\money.png" />
-                                      <entry key="outputName" value="ic_coin" />
+                                      <entry key="imageAsset" value="C:\Users\venri\Downloads\bingo.png" />
+                                      <entry key="outputName" value="ic_lottery" />
                                       <entry key="theme" value="HOLO_DARK" />
                                     </map>
                                   </option>

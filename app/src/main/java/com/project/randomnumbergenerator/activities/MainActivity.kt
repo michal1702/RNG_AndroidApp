@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity(),AdapterView.OnItemClickListener, ToastM
         )
         arrayMainMenuList.add(
             MainMenuListItem(
-                R.drawable.temp,
+                R.drawable.ic_lottery,
                 "Lotto"
             )
         )
@@ -104,6 +104,10 @@ class MainActivity : AppCompatActivity(),AdapterView.OnItemClickListener, ToastM
             4 ->{
                 val coinTossIntent = Intent(this, CoinTossActivity::class.java)
                 startActivity(coinTossIntent)
+            }
+            5 ->{
+                val lotteryIntent = Intent(this, LotteryActivity::class.java)
+                startActivity(lotteryIntent)
             }
             else -> shortToast("Not implemented yet")
         }

@@ -1,15 +1,11 @@
 package com.project.randomnumbergenerator.activities
 
-import android.app.Activity
 import android.os.Bundle
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
 import com.project.randomnumbergenerator.R
-import com.project.randomnumbergenerator.interfaces.KeyboardHide
-import com.project.randomnumbergenerator.ui.main.SectionsPagerAdapter
+import com.project.randomnumbergenerator.passwordfragmentsui.main.SectionsPagerAdapter
 
 class RandomPasswordActivity : AppCompatActivity() {
 
