@@ -97,7 +97,7 @@
         android:layout_width="235dp"
         android:layout_height="108dp"
         android:layout_marginBottom="96dp"
-        android:background="@drawable/icons_rounded_borders_background"
+        android:background="@drawable/rounded_border_background"
         android:fontFamily="@font/round_regular"
         android:paddingTop="8dp"
         android:textAlignment="center"

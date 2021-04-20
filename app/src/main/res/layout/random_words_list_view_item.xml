@@ -36,7 +36,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="13dp"
-            android:background="@drawable/icons_rounded_borders_background"
+            android:background="@drawable/rounded_border_background"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:paddingHorizontal="2dp"
