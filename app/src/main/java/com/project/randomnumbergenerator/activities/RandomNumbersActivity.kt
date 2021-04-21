@@ -88,8 +88,8 @@ class RandomNumbersActivity : AppCompatActivity(), ToastManager, KeyboardHide{
             val rng =
                     RandomNumbersGenerator(
                             numbersCount,
-                        binding.lowerLimitTextEdit,
-                        binding.upperLimitTextEdit
+                        binding.lowerLimitTextEdit.text.toString().toInt(),
+                        binding.upperLimitTextEdit.text.toString().toInt()
                     )
             rng.setSortOptions(binding.ascendingSortSwitch.isChecked, binding.descendingSortSwitch.isChecked)
             if (rng.validate()) {

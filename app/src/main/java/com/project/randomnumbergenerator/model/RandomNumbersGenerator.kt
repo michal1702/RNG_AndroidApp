@@ -4,16 +4,10 @@ import android.widget.EditText
 import kotlin.random.Random
 
 class RandomNumbersGenerator(private val numbersCount: Int,
-                             lowerLimitEditText: EditText,
-                             upperLimitEditText: EditText) {
-    private var lowerLimit: Int? = null
-    private var upperLimit: Int? = null
-    var sorting: SortOptions = SortOptions.None
+                             private val lowerLimit: Int,
+                             private val upperLimit: Int) {
 
-    init {
-        this.lowerLimit = lowerLimitEditText.text.toString().toIntOrNull()
-        this.upperLimit = upperLimitEditText.text.toString().toIntOrNull()
-    }
+    var sorting: SortOptions = SortOptions.None
 
     enum class SortOptions(val value:Int){
         Ascending(1),
@@ -39,7 +33,7 @@ class RandomNumbersGenerator(private val numbersCount: Int,
      * @return if lower limit is greater than upper limit
      */
     fun validate(): Boolean{
-        return this.lowerLimit!! < this.upperLimit!!
+        return lowerLimit < this.upperLimit
     }
 
     /**
@@ -49,8 +43,8 @@ class RandomNumbersGenerator(private val numbersCount: Int,
     fun drawDoubles(): Array<Double>{
         val doubleList = mutableListOf<Double>()
         for (i in 0 until numbersCount) {
-            doubleList.add(Random.nextDouble(this.lowerLimit?.toDouble()!!,
-                    this.upperLimit?.toDouble()!!))
+            doubleList.add(Random.nextDouble(this.lowerLimit.toDouble(),
+                    this.upperLimit.toDouble()))
         }
         val arr: Array<Double> = doubleList.toTypedArray()
         if(sorting == SortOptions.Ascending) arr.sort()
@@ -65,7 +59,7 @@ class RandomNumbersGenerator(private val numbersCount: Int,
     fun drawIntsWithRepetition(): Array<Int>{
         val intList = mutableListOf<Int>()
         for (i in 0 until numbersCount) {
-            intList.add(Random.nextInt(this.lowerLimit!!, this.upperLimit!!))
+            intList.add(Random.nextInt(this.lowerLimit, this.upperLimit))
         }
         val arr: Array<Int> = intList.toTypedArray()
         if(sorting == SortOptions.Ascending) arr.sort()
@@ -78,9 +72,9 @@ class RandomNumbersGenerator(private val numbersCount: Int,
      * @return int array
      */
     fun drawIntsWithoutRepetition(): Array<Int>{
-        val numbersInRange = (this.upperLimit!! - this.lowerLimit!!)+1
-        val arr: Array<Int> = if(numbersInRange<this.numbersCount) (this.lowerLimit!! .. this.upperLimit!!).shuffled().take(numbersInRange).toTypedArray()
-        else (this.lowerLimit!!..this.upperLimit!!).shuffled().take(this.numbersCount).toTypedArray()
+        val numbersInRange = (this.upperLimit - this.lowerLimit)+1
+        val arr: Array<Int> = if(numbersInRange<this.numbersCount) (this.lowerLimit .. this.upperLimit).shuffled().take(numbersInRange).toTypedArray()
+        else (this.lowerLimit..this.upperLimit).shuffled().take(this.numbersCount).toTypedArray()
 
         if(sorting == SortOptions.Ascending) arr.sort()
         else if(sorting == SortOptions.Descending) arr.sortDescending()
@@ -92,8 +86,8 @@ class RandomNumbersGenerator(private val numbersCount: Int,
      * @return numbers count
      */
     fun drawWithoutRepetitionNumberCount(): Int{
-        return if((this.upperLimit!! - this.lowerLimit!!)+1 < this.numbersCount)
-            (this.upperLimit!! - this.lowerLimit!!)+1
+        return if((this.upperLimit - this.lowerLimit)+1 < this.numbersCount)
+            (this.upperLimit - this.lowerLimit)+1
         else
             this.numbersCount
     }
