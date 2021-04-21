@@ -24,7 +24,7 @@
             android:layout_marginBottom="-1dp"
             android:fontFamily="@font/round_regular"
             android:gravity="center"
-            android:text="Word"
+            android:text="@string/word"
             android:textColor="@color/text_white"
             android:textSize="25sp" />
 

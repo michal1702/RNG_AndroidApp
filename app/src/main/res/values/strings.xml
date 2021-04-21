@@ -5,12 +5,41 @@
     <string name="include_decimal">Decimal</string>
     <string name="noRepeat">Repeat</string>
     <string name="result">Result:</string>
-    <string name="generate">Draw</string>
+    <string name="draw">Draw</string>
+    <string name="generate">Generate</string>
     <string name="add_word">Add</string>
     <string name="type_something">Type or record…</string>
     <string name="words"> Words list…</string>
-    <string name="clear_words">Clear</string>
-    <string name="numbers_count">Numbers count</string>
+    <string name="clear">Clear</string>
+    <string name="numbers_count">Numbers count:</string>
+    <string name="draw_six_numbers">Click to draw six numbers</string>
+    <string name="draw_jackpot_numbers">Click to draw jackpot numbers</string>
+
+    <string name="password_tab_1">User Friendly Password</string>
+    <string name="password_tab_2">Fully Random Password</string>
+    <string name="lottery_tab_1">Six-number Lottery</string>
+    <string name="lottery_tab_2">Euro Jackpot</string>
+    <string name="title_activity_lottery">LotteryActivity</string>
+    <string name="_5_main_numbers">5 Main Numbers:</string>
+    <string name="_2_extra_numbers">2 Extra Numbers:</string>
+    <string name="heads">Heads:</string>
+    <string name="tails">Tails:</string>
+    <string name="_0">0</string>
+    <string name="tap_the_coin_or_shake_your_phone">Tap the coin or shake your phone</string>
+    <string name="ascending">Ascending</string>
+    <string name="descending">Descending</string>
+    <string name="draw_options">Draw options:</string>
+    <string name="sort_options">Sort options:</string>
+    <string name="sound_name">Sound name</string>
+    <string name="_00_00">00:00</string>
+    <string name="characters_count">Characters count:</string>
+    <string name="word_1">Word 1</string>
+    <string name="enter_2_3_words_to_generate_nyour_password">Enter 2-3 words to generate \nyour password</string>
+    <string name="word_2">Word 2</string>
+    <string name="word_3">Word 3</string>
+    <string name="title_text">Title Text</string>
+    <string name="sound_no">Sound no.</string>
+    <string name="word">Word</string>
 
     <string-array name="count">
         <item>1</item>
@@ -49,11 +78,5 @@
         <item>23</item>
         <item>24</item>
     </string-array>
-    <string name="password_tab_1">User Friendly Password</string>
-    <string name="password_tab_2">Fully Random Password</string>
-    <string name="lottery_tab_1">Six-number Lottery</string>
-    <string name="lottery_tab_2">Euro Jackpot</string>
-    <string name="title_activity_lottery">LotteryActivity</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
