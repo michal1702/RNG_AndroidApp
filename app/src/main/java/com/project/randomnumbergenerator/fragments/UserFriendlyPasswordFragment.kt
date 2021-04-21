@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -26,9 +28,15 @@ class UserFriendlyPasswordFragment(context: Context) : Fragment(), ToastManager,
     override val activity: Activity = context as Activity
     override val activityContext: Context = context
     private lateinit var binding: FragmentUserFriendlyPasswordPageBinding
+    private lateinit var resultTextViewAnimation: Animation
 
     @ExperimentalStdlibApi
     private val generatePasswordButtonClickListener = View.OnClickListener { generatePasswordButtonClicked() }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        resultTextViewAnimation = AnimationUtils.loadAnimation(context, R.anim.result_animation)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,6 +73,7 @@ class UserFriendlyPasswordFragment(context: Context) : Fragment(), ToastManager,
         if(words<2){
             longToast("Enter at least 2 words")
         }else {
+            binding.generatedUserPasswordTextView.startAnimation(resultTextViewAnimation)
             val passwordGenerator = UserFriendlyPasswordGenerator(wordsArray)
             binding.generatedUserPasswordTextView.text = passwordGenerator.getGeneratedPassword()
         }

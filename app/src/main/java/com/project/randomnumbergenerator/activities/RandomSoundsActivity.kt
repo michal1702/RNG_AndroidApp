@@ -159,6 +159,7 @@ class RandomSoundsActivity : AppCompatActivity(), ToastManager, KeyboardHide {
             }.start()
             shortToast("Now playing: " + soundsArray[position].nameOfSound)
         }
+        else shortToast("Record a sound!")
     }
 
     /**

@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import com.project.randomnumbergenerator.R
 import com.project.randomnumbergenerator.databinding.FragmentEuroJackpotBinding
 
@@ -13,6 +15,12 @@ import com.project.randomnumbergenerator.databinding.FragmentEuroJackpotBinding
 class EuroJackpotFragment : Fragment() {
     private lateinit var binding: FragmentEuroJackpotBinding
     private val drawButtonClickListener = View.OnClickListener { drawButtonClicked() }
+    private lateinit var resultTextViewAnimation: Animation
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        resultTextViewAnimation = AnimationUtils.loadAnimation(context, R.anim.result_animation)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -29,6 +37,8 @@ class EuroJackpotFragment : Fragment() {
     private fun drawButtonClicked(){
         binding.jackpotMainNumbers.text = ""
         binding.jackpotExtraNumbers.text = ""
+        binding.jackpotMainNumbers.startAnimation(resultTextViewAnimation)
+        binding.jackpotExtraNumbers.startAnimation(resultTextViewAnimation)
         for(i in 0 until 5) {
             binding.jackpotMainNumbers.text = binding.jackpotMainNumbers.text.toString() + (1..50).random().toString() + " "
         }

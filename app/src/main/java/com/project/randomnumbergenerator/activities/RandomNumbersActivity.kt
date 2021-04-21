@@ -6,7 +6,8 @@ import android.content.Context
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.View
-import android.view.inputmethod.InputMethodManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.project.randomnumbergenerator.R
@@ -25,10 +26,13 @@ class RandomNumbersActivity : AppCompatActivity(), ToastManager, KeyboardHide{
 
     private val drawButtonClickListener = View.OnClickListener { drawButtonClicked() }
 
+    private lateinit var resultTextViewAnimation: Animation
+
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRandomNumbersBinding.inflate(layoutInflater)
+        resultTextViewAnimation = AnimationUtils.loadAnimation(this, R.anim.result_animation)
         setContentView(binding.root)
         setControls()
         modifyActionBar()
@@ -78,6 +82,7 @@ class RandomNumbersActivity : AppCompatActivity(), ToastManager, KeyboardHide{
      */
     private fun drawButtonClicked(){
         binding.resultTextView.text=""
+        binding.resultTextView.startAnimation(resultTextViewAnimation)
         val numbersCount = binding.numbersCountSpinner.selectedItem.toString().toInt()
         if(!binding.lowerLimitTextEdit.text.isNullOrEmpty() && !binding.upperLimitTextEdit.text.isNullOrEmpty()) {
             val rng =

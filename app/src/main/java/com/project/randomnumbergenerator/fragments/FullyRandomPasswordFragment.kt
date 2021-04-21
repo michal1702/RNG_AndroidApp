@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
@@ -18,6 +20,12 @@ import com.project.randomnumbergenerator.model.FullyRandomPasswordGenerator
 class FullyRandomPasswordFragment : Fragment() {
 
     private lateinit var binding: FragmentFullyRandomPasswordPageBinding
+    private lateinit var resultTextViewAnimation: Animation
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        resultTextViewAnimation = AnimationUtils.loadAnimation(context, R.anim.result_animation)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +47,7 @@ class FullyRandomPasswordFragment : Fragment() {
         binding.passwordCharactersCountSpinner.adapter = spinnerAdapter
 
         binding.generateFullyRandomPasswordButton.setOnClickListener {
+            binding.fullyRandomPasswordTextView.startAnimation(resultTextViewAnimation)
             val generator = FullyRandomPasswordGenerator(binding.passwordCharactersCountSpinner.selectedItem.toString().toInt())
             binding.fullyRandomPasswordTextView.text = generator.getGeneratedPassword()
         }

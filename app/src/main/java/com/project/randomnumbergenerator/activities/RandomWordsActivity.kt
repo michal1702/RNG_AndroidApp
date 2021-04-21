@@ -7,8 +7,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import com.project.randomnumbergenerator.R
 import com.project.randomnumbergenerator.adapters.WordsListAdapter
 import com.project.randomnumbergenerator.databinding.ActivityRandomWordsBinding
 import com.project.randomnumbergenerator.interfaces.KeyboardHide
@@ -30,10 +33,13 @@ class RandomWordsActivity : AppCompatActivity(), ToastManager, KeyboardHide{
     private val clearButtonClickListener = View.OnClickListener { clearButtonClicked() }
     private val addButtonClickListener = View.OnClickListener { addButtonClicked() }
 
+    private lateinit var resultTextViewAnimation: Animation
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRandomWordsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        resultTextViewAnimation = AnimationUtils.loadAnimation(this, R.anim.result_animation)
         modifyActionBar()
         wordsList = ArrayList()
 
@@ -89,18 +95,21 @@ class RandomWordsActivity : AppCompatActivity(), ToastManager, KeyboardHide{
      */
     private fun generateButtonClicked(){
         if(wordsList.isNotEmpty()) {
+            binding.resultTextView.startAnimation(resultTextViewAnimation)
             val position = Random.nextInt(0, wordsList.size)
             binding.resultTextView.text = wordsList[position]
-        }
+        }else shortToast("Enter some words")
     }
 
     /**
      * Clear on clicked
      */
     private fun clearButtonClicked(){
-        wordsList.clear()
-        wordsAdapter.notifyDataSetChanged()
-        binding.resultTextView.text=""
+        if(wordsList.isNotEmpty()) {
+            wordsList.clear()
+            wordsAdapter.notifyDataSetChanged()
+            binding.resultTextView.text = ""
+        }
     }
 
     /**
