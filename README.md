@@ -5,4 +5,4 @@ A simple app that is all in one randomizer:<br>
 -random sounds generator<br>
 -password generator<br>
 -coin toss<br>
-<s>-dice roll<br></s>
+-lottery numbers<br>

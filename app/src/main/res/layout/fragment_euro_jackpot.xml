@@ -72,12 +72,12 @@
         android:id="@+id/drawJackpotButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="176dp"
         android:fontFamily="@font/round_regular"
         android:text="@string/generate"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/textView12"
-        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="@+id/textView11"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

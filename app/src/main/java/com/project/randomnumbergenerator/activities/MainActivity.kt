@@ -74,12 +74,6 @@ class MainActivity : AppCompatActivity(),AdapterView.OnItemClickListener, ToastM
                 "Lotto"
             )
         )
-        arrayMainMenuList.add(
-                MainMenuListItem(
-                        R.drawable.temp,
-                        "Dices"
-                )
-        )
         return arrayMainMenuList
     }
 

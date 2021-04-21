@@ -25,8 +25,8 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager)
         // Return a PlaceholderFragment (defined as a static inner class below).
         //return PlaceholderFragment.newInstance(position + 1)
         return when(position){
+            0 -> SixNumberLotteryFragment()
             1 -> EuroJackpotFragment()
-            2 -> SixNumberLotteryFragment()
             else -> PlaceholderFragment()
         }
     }

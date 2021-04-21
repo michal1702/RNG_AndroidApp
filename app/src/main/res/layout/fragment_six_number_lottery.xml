@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dark_gray"
     tools:context=".fragments.SixNumberLotteryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <Button
+        android:id="@+id/drawSixNumberLottery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="260dp"
+        android:text="@string/generate"
+        android:fontFamily="@font/round_regular"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/sixNumberLotteryResult"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="48dp"
+        android:text=""
+        android:gravity="center"
+        android:fontFamily="@font/round_regular"
+        android:textSize="22sp"
+        android:textColor="@color/text_white"
+        android:background="@drawable/rounded_border_background"
+        app:layout_constraintEnd_toEndOf="@+id/drawSixNumberLottery"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="@+id/drawSixNumberLottery"
+        app:layout_constraintTop_toBottomOf="@+id/drawSixNumberLottery" />
+</androidx.constraintlayout.widget.ConstraintLayout>
