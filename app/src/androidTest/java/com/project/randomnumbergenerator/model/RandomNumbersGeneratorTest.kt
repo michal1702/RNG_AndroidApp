@@ -19,7 +19,8 @@ class RandomNumbersGeneratorTest(private val numbersCountTest: Int, private val 
                     arrayOf(3, -1, 1),
                     arrayOf(1, 1999, 2001),
                     arrayOf(2, 1999, 2001),
-                    arrayOf(3, 1999, 2001)
+                    arrayOf(3, 1999, 2001),
+                    arrayOf(5, 1000, 2001)
             ).toList()
         }
     }
@@ -36,7 +37,7 @@ class RandomNumbersGeneratorTest(private val numbersCountTest: Int, private val 
     }
 
     @Test
-    fun testDoublesAscending(){
+    fun testDrawDoublesAscending(){
         val rng = RandomNumbersGenerator(numbersCountTest, lowerLimitTest, upperLimitTest)
         rng.setSortOptions(asc = true, desc = false)
         val list = rng.drawDoubles()
@@ -54,7 +55,7 @@ class RandomNumbersGeneratorTest(private val numbersCountTest: Int, private val 
     }
 
     @Test
-    fun testDoublesDescending(){
+    fun testDrawDoublesDescending(){
         val rng = RandomNumbersGenerator(numbersCountTest, lowerLimitTest, upperLimitTest)
         rng.setSortOptions(asc = false, desc = true)
         val list = rng.drawDoubles()
@@ -68,6 +69,29 @@ class RandomNumbersGeneratorTest(private val numbersCountTest: Int, private val 
                 }
             }
         }
+        assertTrue(isCorrect)
+    }
+
+    private fun hasDuplicates(arr: Array<Int>): Boolean {
+        return arr.size != hashSetOf(*arr).size
+    }
+
+    @Test
+    fun testDrawIntsWithoutRepetition(){
+        val rng = RandomNumbersGenerator(numbersCountTest, lowerLimitTest, upperLimitTest)
+        rng.setSortOptions(asc = false, desc = true)
+        val list = rng.drawIntsWithoutRepetition()
+        var isCorrect = true
+        var prev = list[0]
+        for(item in list){
+            if(item > upperLimitTest || item < lowerLimitTest){
+                if(prev < item){
+                    isCorrect = false
+                    prev = item
+                }
+            }
+        }
+        if(hasDuplicates(list)) isCorrect = false
         assertTrue(isCorrect)
     }
 }
